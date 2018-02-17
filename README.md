@@ -1,24 +1,25 @@
 # Filidor Wiese - Resume website
 
-
+My static resume website build with Gatsby + React.
 
 ## Prerequisites
 * Npm (LTS version or higher)
+* Yarn
 * Gatsby
 
 ## Installing dependencies
 ```
-$ npm install
+$ yarn install
 ```
 
 ## Running dev environment
 ```
-$ gatsby develop
+$ yarn develop
 ```
 
 ## Making the build
 ```
-$ gatsby build
+$ yarn build
 ```
 
 ## License ##
