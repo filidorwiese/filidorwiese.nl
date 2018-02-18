@@ -1,26 +1,58 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import styled, { ThemeProvider } from 'styled-components'
+import { Flex, Box } from 'grid-styled'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Doormat from '../components/Doormat'
+import { colors } from '../theme'
 import './index.css'
+
+const Container = styled(Box)`
+  max-width: 1280px;
+`
+
+const PageFlex = styled(Flex)`
+  background-color: ${colors.brokenWhite};
+`
+
+const DoormatFlex = styled(Flex)`
+  background-color: ${colors.lightBlue};
+`
+
+const FooterFlex = styled(Flex)`
+  background-color: ${colors.darkBlue};
+`
+
+// http://jxnblk.com/grid-styled/
 
 export default ({ children, data }) => {
   const siteMetadata = data.site.siteMetadata
-  const pageTitle = `Resume: ${siteMetadata.bio.name}, ${
-    siteMetadata.bio.title
-  }`
 
   return (
-    <div style={{ backgroundColor: '#fcf9f6' }}>
-      <Helmet
-        title={pageTitle}
-        meta={[{ name: 'description', content: siteMetadata.bio.description }]}
-      />
-      <Header bio={siteMetadata.bio} social={siteMetadata.social} />
-      <main>{children()}</main>
-      <Footer bio={siteMetadata.bio} />
-    </div>
+    <ThemeProvider
+      theme={{
+        breakpoints: [ '48em', '64em' ]
+      }}>
+      <div>
+        <PageFlex>
+          <Container px={20} py={55} mx='auto'>
+            <Header bio={siteMetadata.bio} social={siteMetadata.social} />
+            {children()}
+          </Container>
+        </PageFlex>
+        <DoormatFlex>
+          <Container px={20} py={80} mx='auto'>
+            <Doormat bio={siteMetadata.bio} />
+          </Container>
+        </DoormatFlex>
+        <FooterFlex>
+          <Container px={20} py={160} mx='auto'>
+            <Footer bio={siteMetadata.bio} />
+          </Container>
+        </FooterFlex>
+      </div>
+    </ThemeProvider>
   )
 }
 
