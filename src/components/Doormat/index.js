@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Flex, Box } from 'grid-styled'
+import Video from '../Video'
 
 const Wrapper = styled.div`
   max-width: 800px;
@@ -13,24 +14,26 @@ const H4 = styled.h4`
 `
 
 const BrowserMini = styled(Box)`
-  border: 1px solid lime;
+  margin: 0 20px;
 `
 
 const Doormat = ({ bio }) => (
   <Wrapper>
     <div>
-      <H4>Earlier projects</H4>
+      <H4>Other projects</H4>
       <p>
-        2001 t/m 2011, freelance projecten voor zeer diverse bedrijven als
-        Jachthaven zuidwesthoek, USVA, Gemeente Drenthe, Internethost.nl,
-        Gemeente Groningen, Buyways Rolls, Bevrijdingsfestival Groningen,
-        Theater Peergroup, Vevida, Noorderzon, Four Corners, Kunstencentrum
-        Groningen, en meer
+        {bio.other}
       </p>
-      <Flex>
-        <BrowserMini flex="1 1 auto">Hillary vs trump</BrowserMini>
-        <BrowserMini flex="1 1 auto">Multeor</BrowserMini>
-        <BrowserMini flex="1 1 auto">Galaxy.fili.nl</BrowserMini>
+      <Flex mt={80}>
+        <BrowserMini flex="1 1 auto">
+          <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} browser />
+        </BrowserMini>
+        <BrowserMini flex="1 1 auto">
+          <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} browser />
+        </BrowserMini>
+        <BrowserMini flex="1 1 auto">
+          <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} browser />
+        </BrowserMini>
       </Flex>
     </div>
   </Wrapper>

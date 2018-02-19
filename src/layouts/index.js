@@ -68,6 +68,7 @@ export const query = graphql`
           phone
           description
           title
+          other
         }
         social {
           github

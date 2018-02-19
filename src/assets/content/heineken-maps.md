@@ -1,6 +1,5 @@
 ---
 title: Heineken Maps
-url: https://www.heineken.nl
 sortdate: "2017-08-21"
 date: "January 2017 to Februari 2018"
 tags: Git, Angular, Scrum

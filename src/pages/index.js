@@ -29,10 +29,8 @@ export const query = graphql`
       siteMetadata {
         bio {
           name
-          email
-          phone
-          description
           title
+          description
         }
         social {
           github
