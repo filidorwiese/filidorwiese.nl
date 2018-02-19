@@ -5,7 +5,7 @@ import { Flex, Box } from 'grid-styled'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Doormat from '../components/Doormat'
-import { colors } from '../utils/theme'
+import { colors, breakpoints } from '../utils/theme'
 
 const Container = styled(Box)`
   max-width: 1280px;
@@ -33,7 +33,7 @@ export default ({ children, data }) => {
   return (
     <ThemeProvider
       theme={{
-        breakpoints: ['48em', '64em'],
+        breakpoints: breakpoints,
       }}
     >
       <div>

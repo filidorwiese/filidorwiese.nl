@@ -1,24 +1,23 @@
-<svg width="385" height="34" viewBox="0 0 385 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<title>Group 2</title>
-<desc>Created using Figma</desc>
-<g id="Canvas" transform="translate(-3954 -816)">
-<g id="Group 2">
-<g id="Rectangle 18">
-<use xlink:href="#path0_fill" transform="translate(3954 816)" fill="#FFFFFF"/>
-</g>
-<g id="Oval">
-<use xlink:href="#path1_fill" transform="translate(3964.4 826.257)" fill="#CCD3D6"/>
-</g>
-<g id="Oval Copy">
-<use xlink:href="#path1_fill" transform="translate(3981.29 826.257)" fill="#CCD3D6"/>
-</g>
-<g id="Oval Copy 2">
-<use xlink:href="#path1_fill" transform="translate(3998.19 826.257)" fill="#CCD3D6"/>
-</g>
-</g>
-</g>
-<defs>
-<path id="path0_fill" fill-rule="evenodd" d="M 0 0L 385 0L 385 33.3367L 0 33.3367L 0 0Z"/>
-<path id="path1_fill" fill-rule="evenodd" d="M 6.49798 12.8218C 10.0867 12.8218 12.996 9.95154 12.996 6.4109C 12.996 2.87026 10.0867 0 6.49798 0C 2.90924 0 0 2.87026 0 6.4109C 0 9.95154 2.90924 12.8218 6.49798 12.8218Z"/>
-</defs>
+<svg viewBox="0 0 385 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Canvas" transform="translate(-3954 -816)">
+        <g id="Group 2">
+            <g id="Rectangle 18">
+                <use xlink:href="#path0_fill" transform="translate(3954 816)" fill="#FFFFFF"/>
+            </g>
+            <g id="Oval">
+                <use xlink:href="#path1_fill" transform="translate(3964.4 826.257)" fill="#CCD3D6"/>
+            </g>
+            <g id="Oval Copy">
+                <use xlink:href="#path1_fill" transform="translate(3981.29 826.257)" fill="#CCD3D6"/>
+            </g>
+            <g id="Oval Copy 2">
+                <use xlink:href="#path1_fill" transform="translate(3998.19 826.257)" fill="#CCD3D6"/>
+            </g>
+        </g>
+    </g>
+    <defs>
+        <path id="path0_fill" fill-rule="evenodd" d="M 0 0L 385 0L 385 33.3367L 0 33.3367L 0 0Z"/>
+        <path id="path1_fill" fill-rule="evenodd"
+              d="M 6.49798 12.8218C 10.0867 12.8218 12.996 9.95154 12.996 6.4109C 12.996 2.87026 10.0867 0 6.49798 0C 2.90924 0 0 2.87026 0 6.4109C 0 9.95154 2.90924 12.8218 6.49798 12.8218Z"/>
+    </defs>
 </svg>

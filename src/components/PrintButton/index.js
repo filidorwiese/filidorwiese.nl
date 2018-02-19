@@ -6,6 +6,12 @@ const Button = styled.button`
   border: 0;
   background-color: ${colors.darkBlue};
   color: #fff;
+  padding: 8px 18px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: ${colors.lightBlue};
+  }
 `
 
 class PrintButton extends React.PureComponent {
@@ -14,7 +20,7 @@ class PrintButton extends React.PureComponent {
   }
 
   render() {
-    return <Button onClick={this.onClick}>Print Resume</Button>
+    return <Button onClick={this.onClick}>Print</Button>
   }
 }
 
