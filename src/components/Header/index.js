@@ -8,15 +8,15 @@ import Bio from '../../components/Bio'
 
 const Header = ({ bio, social }) => (
   <header>
-    <Flex justifyContent='space-between' flexWrap={['wrap', 'nowrap']} >
-      <Box flex='0 0 auto' order={10}>
+    <Flex justifyContent="space-between" flexWrap={['wrap', 'nowrap']}>
+      <Box flex="0 0 auto" order={10}>
         <SocialLinks links={social} />
         <Contact email={bio.email} phone={bio.phone} />
       </Box>
-      <Box flex='0 1 auto' order={[40, 20]} px={40}>
+      <Box flex="0 1 auto" order={[40, 20]} px={40}>
         <Bio name={bio.name} description={bio.description} />
       </Box>
-      <Box flex='0 0 auto' order={30}>
+      <Box flex="0 0 auto" order={30}>
         <PrintButton />
       </Box>
     </Flex>

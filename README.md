@@ -1,6 +1,11 @@
 # Filidor Wiese - Resume website
 
-My static resume website build with Gatsby + React.
+My static resume website build:
+ * Gatsby
+ * React
+ * Styled-components
+ * Grid-styled
+ * Typography
 
 ## Prerequisites
 * Npm (LTS version or higher)
@@ -20,6 +25,11 @@ $ yarn develop
 ## Making the build
 ```
 $ yarn build
+```
+
+## Serving the build
+```
+$ yarn serve public
 ```
 
 ## License ##

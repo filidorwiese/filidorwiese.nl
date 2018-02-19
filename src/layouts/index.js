@@ -5,8 +5,7 @@ import { Flex, Box } from 'grid-styled'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Doormat from '../components/Doormat'
-import { colors } from '../theme'
-import './index.css'
+import { colors } from '../utils/theme'
 
 const Container = styled(Box)`
   max-width: 1280px;
@@ -24,6 +23,8 @@ const FooterFlex = styled(Flex)`
   background-color: ${colors.darkBlue};
 `
 
+
+// https://github.com/kyleamathews/typography.js
 // http://jxnblk.com/grid-styled/
 
 export default ({ children, data }) => {
@@ -32,22 +33,23 @@ export default ({ children, data }) => {
   return (
     <ThemeProvider
       theme={{
-        breakpoints: [ '48em', '64em' ]
-      }}>
+        breakpoints: ['48em', '64em'],
+      }}
+    >
       <div>
         <PageFlex>
-          <Container px={20} py={55} mx='auto'>
+          <Container px={20} py={55} mx="auto">
             <Header bio={siteMetadata.bio} social={siteMetadata.social} />
             {children()}
           </Container>
         </PageFlex>
         <DoormatFlex>
-          <Container px={20} py={80} mx='auto'>
+          <Container px={20} py={80} mx="auto">
             <Doormat bio={siteMetadata.bio} />
           </Container>
         </DoormatFlex>
         <FooterFlex>
-          <Container px={20} py={160} mx='auto'>
+          <Container px={20} py={160} mx="auto">
             <Footer bio={siteMetadata.bio} />
           </Container>
         </FooterFlex>

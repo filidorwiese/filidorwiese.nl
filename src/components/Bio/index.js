@@ -9,6 +9,6 @@ const Bio = styled.div`
 export default ({ name, description }) => (
   <Bio>
     <h1>{name}</h1>
-    <p>{description}</p>
+    <blockquote>{description}</blockquote>
   </Bio>
 )

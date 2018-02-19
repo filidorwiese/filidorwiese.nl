@@ -4,7 +4,9 @@ import Project from '../components/Project'
 
 export default ({ data }) => {
   const siteMetadata = data.site.siteMetadata
-  const pageTitle = `Resume: ${siteMetadata.bio.name}, ${siteMetadata.bio.title}`
+  const pageTitle = `Resume: ${siteMetadata.bio.name}, ${
+    siteMetadata.bio.title
+  }`
   const projects = data.allMarkdownRemark.edges
   return (
     <main>
@@ -38,7 +40,7 @@ export const query = graphql`
           linkedin
         }
       }
-    },
+    }
     allMarkdownRemark(
       sort: { fields: [frontmatter___sortdate], order: DESC }
       filter: { fileAbsolutePath: { regex: "/(content)/.*.md$/" } }

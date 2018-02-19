@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { colors } from '../../theme'
+import { colors } from '../../utils/theme'
 
 const Button = styled.button`
   border: 0;
   background-color: ${colors.darkBlue};
-  color: #FFF;
+  color: #fff;
 `
 
 class PrintButton extends React.PureComponent {
