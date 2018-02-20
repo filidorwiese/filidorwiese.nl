@@ -1,8 +1,8 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import Waypoint from 'react-waypoint'
-import H5Video from 'react-h5-video'
 import { withPrefix } from 'gatsby-link'
 
 import browser from '../../assets/images/browser.svg'
@@ -23,31 +23,48 @@ const Browser = styled.div`
 `
 
 class Video extends React.PureComponent {
-  videoLoaded = api => {
-    this.videoApi = api
+  constructor (props) {
+    super(props)
+    this.state = {
+      isPlaying: false
+    }
   }
 
   handleWaypoint = () => {
-    // if (this.videoApi) {
-    //   this.videoApi.togglePlay()
-    // } else {
-    //   setTimeout(this.handleWaypoint, 100)
-    // }
+    if (this.videoEl) {
+      this.togglePlay()
+    } else {
+      this.videoEl = ReactDOM.findDOMNode(this.refs.video)
+      setTimeout(this.handleWaypoint, 1000)
+    }
+  }
+
+  togglePlay = () => {
+    if (this.state.isPlaying) {
+      this.videoEl.pause()
+      this.setState({
+        isPlaying: false
+      })
+    } else {
+      this.videoEl.play()
+      this.setState({
+        isPlaying: true
+      })
+    }
   }
 
   render() {
     return (
       <Waypoint onEnter={this.handleWaypoint} onLeave={this.handleWaypoint}>
         <Browser browser={this.props.browser}>
-          <H5Video
-            width="100%"
-            height="auto"
-            loop
-            mute
-            controls={false}
-            sources={[withPrefix(this.props.video)]}
-            metaDataLoaded={this.videoLoaded}
-          />
+          <video ref='video'
+                 width='100%'
+                 height='auto'
+                 muted
+                 preload='metadata'
+                 loop>
+            <source src={withPrefix(this.props.video)} type='video/mp4' />
+          </video>
         </Browser>
       </Waypoint>
     )

@@ -6762,10 +6762,6 @@ react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
 
-react-h5-video@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-h5-video/-/react-h5-video-1.0.4.tgz#d6f4906fb639a9cc3a63864ab59bfa46812bd8bd"
-
 react-helmet@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.0.tgz#a81811df21313a6d55c5f058c4aeba5d6f3d97a7"
@@ -8388,7 +8384,7 @@ typography-normalize@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/typography-normalize/-/typography-normalize-0.14.0.tgz#1d77c1fe2aaf4a51b3673c4c85c85a65a2d4b573"
 
-typography@^0.16.0, typography@^0.16.6:
+typography@0.16.6, typography@^0.16.0:
   version "0.16.6"
   resolved "https://registry.yarnpkg.com/typography/-/typography-0.16.6.tgz#8eeb6a3f10a97fd08025132bb50272104ae72aa3"
   dependencies:
