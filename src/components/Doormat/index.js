@@ -14,7 +14,7 @@ const H4 = styled.h4`
 `
 
 const BrowserMini = styled(Box)`
-  margin: 0 20px;
+  margin: 0 2%;
 `
 
 const Doormat = ({ bio }) => (

@@ -16,8 +16,18 @@ const typography = new Typography({
     },
   ],
   overrideStyles: ({ adjustFontSizeTo, rhythm }, options, styles) => ({
-    'h1, h2, h3, h4': {
+    'body': {
+      'letter-spacing': '-1px'
+    },
+    'h1': {
+      ...adjustFontSizeTo('32px'),
+    },
+    'h2, h3, h4': {
       ...adjustFontSizeTo('28px'),
+    },
+    'article li': {
+      ...adjustFontSizeTo('16px'),
+      'letter-spacing': '0'
     },
     blockquote: {
       ...adjustFontSizeTo('28px'),

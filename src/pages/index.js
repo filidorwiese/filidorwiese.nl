@@ -32,11 +32,6 @@ export const query = graphql`
           title
           description
         }
-        social {
-          github
-          twitter
-          linkedin
-        }
       }
     }
     allMarkdownRemark(
@@ -45,7 +40,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          excerpt
+          html
           frontmatter {
             title
             url

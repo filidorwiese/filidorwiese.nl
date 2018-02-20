@@ -23,7 +23,7 @@ const Header = ({ bio, social }) => (
           {bio.phone}
         </div>
       </Box>
-      <Box flex="0 1 auto" order={[40, 20]} px={[0, 40]} mb={[80, 180]} mt={[50, 0]}>
+      <Box flex="0 1 auto" order={[40, 20]} px={[0, 40]} mb={[80, 100]} mt={[50, 0]}>
         <Bio name={bio.name} description={bio.description} />
       </Box>
       <Box flex="0 0 auto" order={30}>

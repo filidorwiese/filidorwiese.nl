@@ -51,7 +51,7 @@ const Laptop = styled.div`
 
 export default ({ name, description }) => (
   <Bio>
-    <Devices px={20} my={30}>
+    <Devices px={20} mt={40} mb={60}>
       <Desktop>
         <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} />
       </Desktop>

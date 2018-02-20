@@ -1,9 +1,9 @@
 ---
-title: Amsterdam Arena
-url: https://www.amsterdamarena.nl
-sortdate: "2013-01-01"
-date: "August 2012 - January 2013"
-tags: Javascript, CSS, HTML
+title: Gelredome
+url: http://www.gelredome.nl/nl/
+sortdate: "2016-09-01"
+date: "September 2016"
+tags: ES6, Sass, Inuit, HTML, SEO
 video: "beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4"
 printonly: false
 ---

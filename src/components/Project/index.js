@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Flex, Box } from 'grid-styled'
 import styled from 'styled-components'
 
-import { colors } from '../../utils/theme'
+import { breakpoints, colors } from '../../utils/theme'
 import iconLink from '../../assets/images/icon_link.svg'
 import iconTime from '../../assets/images/icon_time.svg'
 import iconTech from '../../assets/images/icon_tech.svg'
@@ -15,6 +15,12 @@ const ProjectLine = styled(Box)`
 `
 
 const ProjectDescription = styled(Box)``
+const ProjectVideo = styled(Box)`
+  min-width: 30%;
+  @media (min-width: ${breakpoints[0]}) {
+    max-width: 370px;
+  }
+`
 
 const Ul = styled.ul`
   padding: 0;
@@ -43,12 +49,12 @@ const LiLink = styled.li`
   padding-left: 40px;
 `
 
-const stripHttpWww = (string) => string.replace(/http(s):\/\/(www\.)?/, '')
+const stripDomain = (string) => string.match(/https?:\/\/(?:www\.)?([a-z0-9\-\.]*)(?:\/|$)/)[1]
 
 class Project extends React.PureComponent {
   render() {
     const {
-      excerpt,
+      html,
       frontmatter: { title, url, date, tags, video },
     } = this.props.project
 
@@ -58,18 +64,18 @@ class Project extends React.PureComponent {
           <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
           <ProjectDescription flex="1 1 auto" px={[50, 40]} order={20}>
             <h2>{title}</h2>
-            <p>{excerpt}</p>
+            <p dangerouslySetInnerHTML={{ __html: html}} />
             <Ul>
               <LiTime>{date}</LiTime>
               <LiTech>{tags}</LiTech>
               {url && <LiLink>
-                <Anchor href={url}>{stripHttpWww(url)}</Anchor>
+                <Anchor href={url}>{stripDomain(url)}</Anchor>
               </LiLink>}
             </Ul>
           </ProjectDescription>
-          <Box flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
+          <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
             <Video video={video} browser />
-          </Box>
+          </ProjectVideo>
         </Flex>
       </article>
     )

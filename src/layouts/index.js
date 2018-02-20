@@ -38,7 +38,7 @@ export default ({ children, data }) => {
     >
       <div>
         <PageFlex>
-          <Container px={20} py={55} mx="auto">
+          <Container px={20} py={40} mx="auto">
             <Header bio={siteMetadata.bio} social={siteMetadata.social} />
             {children()}
           </Container>
