@@ -23,10 +23,6 @@ const FooterFlex = styled(Flex)`
   background-color: ${colors.darkBlue};
 `
 
-
-// https://github.com/kyleamathews/typography.js
-// http://jxnblk.com/grid-styled/
-
 export default ({ children, data }) => {
   const siteMetadata = data.site.siteMetadata
 

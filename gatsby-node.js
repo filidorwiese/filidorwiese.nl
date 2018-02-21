@@ -3,5 +3,23 @@
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
+const Webpack = require("webpack");
 
- // You can delete this file if you're not using it
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  config.plugin('jquery', Webpack.ProvidePlugin, [
+    {
+      $: 'jquery',
+      jQuery: 'jquery'
+    }
+  ])
+
+  // Ignore jquery plugins during builds
+  if (stage === 'build-html') {
+    config.loader("null", {
+      test: /jquery.*/,
+      loader: "null-loader",
+    });
+  }
+
+  return config;
+};

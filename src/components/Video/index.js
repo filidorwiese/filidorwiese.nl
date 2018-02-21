@@ -32,7 +32,7 @@ class Video extends React.PureComponent {
 
   handleWaypoint = () => {
     if (this.videoEl) {
-      this.togglePlay()
+      // this.togglePlay()
     } else {
       this.videoEl = ReactDOM.findDOMNode(this.refs.video)
       setTimeout(this.handleWaypoint, 1000)

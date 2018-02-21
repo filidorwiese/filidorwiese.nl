@@ -5,6 +5,7 @@ import { Box } from 'grid-styled'
 import { breakpoints } from '../../utils/theme'
 import devices from '../../assets/images/devices.svg'
 import Video from '../Video'
+import Fili from '../Fili'
 
 const Bio = styled(Box)`
   text-align: center;
@@ -51,7 +52,8 @@ const Laptop = styled.div`
 
 export default ({ name, description }) => (
   <Bio>
-    <Devices px={20} mt={40} mb={60}>
+    <Devices px={20} mt={40} mb={60} id='devices'>
+      <Fili />
       <Desktop>
         <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} />
       </Desktop>
