@@ -20,7 +20,7 @@ class PrintButton extends React.PureComponent {
   }
 
   render() {
-    return <Button onClick={this.onClick}>Print</Button>
+    return <Button onClick={this.onClick}>Print Resume</Button>
   }
 }
 

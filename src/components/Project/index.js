@@ -15,6 +15,7 @@ const ProjectLine = styled(Box)`
 `
 
 const ProjectDescription = styled(Box)``
+
 const ProjectVideo = styled(Box)`
   min-width: 30%;
   @media (min-width: ${breakpoints[0]}) {
@@ -49,7 +50,7 @@ const LiLink = styled.li`
   padding-left: 40px;
 `
 
-const stripDomain = (string) => string.match(/https?:\/\/(?:www\.)?([a-z0-9\-\.]*)(?:\/|$)/)[1]
+const stripDomain = (string) => string.match(/https?:\/\/(?:www\.)?([a-z0-9\-.]*)(?:\/|$)/)[1]
 
 class Project extends React.PureComponent {
   render() {
@@ -62,7 +63,7 @@ class Project extends React.PureComponent {
       <article>
         <Flex flexWrap={['wrap', 'nowrap']} py={60}>
           <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
-          <ProjectDescription flex="1 1 auto" px={[50, 40]} order={20}>
+          <ProjectDescription flex="1 1 auto" pl={[50, 40]} pr={[0, 60]} order={20}>
             <h2>{title}</h2>
             <p dangerouslySetInnerHTML={{ __html: html}} />
             <Ul>

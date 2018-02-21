@@ -8,7 +8,7 @@ import Doormat from '../components/Doormat'
 import { colors, breakpoints } from '../utils/theme'
 
 const Container = styled(Box)`
-  max-width: 1280px;
+  max-width: 1440px;
 `
 
 const PageFlex = styled(Flex)`
