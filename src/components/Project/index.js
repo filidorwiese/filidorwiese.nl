@@ -69,12 +69,14 @@ class Project extends React.PureComponent {
               <LiTime>{date}</LiTime>
               <LiTech>{tags}</LiTech>
               {url && <LiLink>
-                <Anchor href={url}>{stripDomain(url)}</Anchor>
+                <Anchor href={url} target='_blank'>{stripDomain(url)}</Anchor>
               </LiLink>}
             </Ul>
           </ProjectDescription>
           <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
-            <Video video={video} browser />
+            <a href={url} target='_blank'>
+              <Video video={video} browser />
+            </a>
           </ProjectVideo>
         </Flex>
       </article>
