@@ -56,11 +56,11 @@ class Project extends React.PureComponent {
   render() {
     const {
       html,
-      frontmatter: { title, url, date, tags, video },
+      frontmatter: { title, url, date, tags, video, poster, printonly },
     } = this.props.project
 
     return (
-      <article>
+      <article className={printonly && 'printonly'}>
         <Flex flexWrap={['wrap', 'nowrap']} py={60}>
           <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
           <ProjectDescription flex="1 1 auto" pl={[50, 40]} pr={[0, 60]} order={20}>
@@ -76,7 +76,7 @@ class Project extends React.PureComponent {
           </ProjectDescription>
           <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
             <a href={url} target='_blank'>
-              <Video video={video} browser />
+              <Video video={video} poster={poster} browser />
             </a>
           </ProjectVideo>
         </Flex>

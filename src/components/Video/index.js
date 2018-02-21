@@ -26,16 +26,35 @@ class Video extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      isPlaying: false
+      isPlaying: false,
+      inView: false
     }
   }
 
-  handleWaypoint = () => {
+  handleEnter = () => {
+    this.setState({
+      inView: true
+    })
     if (this.videoEl) {
-      // this.togglePlay()
+      this.videoEl.play()
+      this.setState({
+        isPlaying: true
+      })
     } else {
       this.videoEl = ReactDOM.findDOMNode(this.refs.video)
-      setTimeout(this.handleWaypoint, 1000)
+      setTimeout(this.handleEnter, 1000)
+    }
+  }
+
+  handleLeave = () => {
+    if (this.videoEl) {
+      this.videoEl.pause()
+      this.setState({
+        isPlaying: false
+      })
+    } else {
+      this.videoEl = ReactDOM.findDOMNode(this.refs.video)
+      setTimeout(this.handleLeave, 1000)
     }
   }
 
@@ -55,16 +74,19 @@ class Video extends React.PureComponent {
 
   render() {
     return (
-      <Waypoint onEnter={this.handleWaypoint} onLeave={this.handleWaypoint}>
+      <Waypoint onEnter={this.handleEnter} onLeave={this.handleLeave}>
         <Browser browser={this.props.browser}>
-          <video ref='video'
-                 width='100%'
-                 height='auto'
-                 muted
-                 preload='metadata'
-                 loop>
-            <source src={withPrefix(this.props.video)} type='video/mp4' />
-          </video>
+          { this.state.inView && (
+              <video ref='video'
+                   width='100%'
+                   height='auto'
+                   muted
+                   preload='none'
+                   loop
+                   poster={this.props.poster}>
+              <source src={withPrefix(this.props.video)} type='video/mp4' />
+            </video>)
+          }
         </Browser>
       </Waypoint>
     )
@@ -73,6 +95,7 @@ class Video extends React.PureComponent {
 
 Video.propTypes = {
   video: PropTypes.string,
+  poster: PropTypes.string,
   browser: PropTypes.bool
 }
 

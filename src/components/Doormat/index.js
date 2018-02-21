@@ -26,13 +26,19 @@ const Doormat = ({ bio }) => (
       </p>
       <Flex mt={80}>
         <BrowserMini flex="1 1 auto">
-          <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} browser />
+          <a href='https://worldwide.vote/hillary-vs-trump/' target='_blank'>
+            <Video video='media/hillaryvstrump.mp4' poster='media/hillaryvstrump.jpg' browser />
+          </a>
         </BrowserMini>
         <BrowserMini flex="1 1 auto">
-          <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} browser />
+          <a href='https://galaxy.fili.nl' target='_blank'>
+            <Video video='media/galaxy.mp4' poster='media/galaxy.jpg' browser />
+          </a>
         </BrowserMini>
         <BrowserMini flex="1 1 auto">
-          <Video video={'beee5905-bc83-4164-9c64-51f4bd7f0a79.mp4'} browser />
+          <a href='http://multeor.com' target='_blank'>
+            <Video video='media/multeor.mp4' poster='media/multeor.jpg' browser />
+          </a>
         </BrowserMini>
       </Flex>
     </div>

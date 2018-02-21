@@ -6,7 +6,7 @@ module.exports = {
       phone: '+31 (0)6 24 99 32 05',
       title: 'Freelance Front-end Developer',
       description: 'I build pixel-perfect applications for the web, using modern techniques and Javascript frameworks, with an emphasis on performance, usability and search-engine friendliness.',
-      other: `Earlier work includes projects for various companies such as Jachthaven Zuidwesthoek, USVA, Gemeente Drenthe, Internethost.nl, Gemeente Groningen, Buyways Rolls, Bevrijdingsfestival Groningen, Theater Peergroup, Vevida, Noorderzon, Four Corners, Kunstencentrum Groningen, and others`,
+      other: `Earlier work includes projects for various companies such as Gemeente Drenthe, Politie Groningen, USVA, NP3, Bevrijdingsfestival, Theater Peergroup, Vevida, Noorderzon, Four Corners, Kunstencentrum Groningen, and others`,
       url: 'https://filidorwiese.nl'
     },
     social: {

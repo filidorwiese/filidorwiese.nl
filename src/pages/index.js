@@ -63,55 +63,11 @@ export const query = graphql`
             date
             tags
             video
+            poster
+            printonly
           }
         }
       }
     }
   }
 `
-
-
-// return {
-//   type: 'application/ld+json',
-//   innerHTML: JSON.stringify({
-//     '@context': 'http://schema.org',
-//     '@type': 'Organization',
-//     name: 'Leaseplan',
-//     makesOffer: {
-//       '@type': 'Offer',
-//       businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
-//       priceCurrency: carCurrencyCode,
-//       price: carPrice,
-//       priceSpecification: {
-//         '@type': 'priceSpecification',
-//         eligibleQuantity: {
-//           '@type': 'QuantitativeValue',
-//           unitCode: 'MON',
-//           unitText: 'Month',
-//           value: 1
-//         }
-//       },
-//       itemOffered: {
-//         '@type': 'Car',
-//         name: carName,
-//         description: car.get('readMoreText'),
-//         image: {
-//           '@type': 'ImageObject',
-//           width: 812,
-//           height: 540,
-//           url: galleryImageUrl
-//         },
-//         color: selectedColor.get('title'),
-//         vehicleEngine: {
-//           '@type': 'EngineSpecification',
-//           name: car.getIn(['specifications', 'engine'])
-//         },
-//         bodyType: car.getIn(['specifications', 'body']),
-//         fuelType: car.getIn(['specifications', 'fuel']),
-//         fuelConsumption: car.getIn(['specifications', 'fuelConsumption']),
-//         vehicleInteriorType: car.getIn(['specifications', 'interior']),
-//         vehicleSeatingCapacity: car.getIn(['specifications', 'seats']),
-//         vehicleTransmission: car.getIn(['specifications', 'transmission'])
-//       }
-//     }
-//   })
