@@ -8,18 +8,26 @@ import phoneP from '../../assets/images/devices/phone-p.jpg'
 import ipadP from '../../assets/images/devices/ipad-p.jpg'
 import ipadL from '../../assets/images/devices/ipad-l.jpg'
 import Video from '../Video'
+import PrintHide from '../PrintHide'
+import PrintShow from '../PrintShow'
 import Fili from '../Fili'
 
 const Bio = styled(Box)`
   text-align: center;
+
+  @media print {
+    text-align: left;
+  }
 `
 
 const Blockquote = styled.blockquote`
   margin: 0;
+  
   @media (max-width: ${breakpoints[0]}) {
     font-size: 1rem;
     line-height: 1.6;
   }
+  
   @media (max-width: 40em) {
     text-align: left;
   }
@@ -141,24 +149,31 @@ const PhoneL = styled.div`
   }
 `
 
-export default ({ name, description }) => (
+export default ({ name, description, headline }) => (
   <Bio>
-    <Devices px={20} mt={40} mb={60} id='devices'>
-      <Fili />
-      <Desktop>
-        <Video video='media/tnt.mp4' poster='media/tnt.jpg' />
-      </Desktop>
-      <Laptop>
-        <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' />
-      </Laptop>
-      <PhoneP />
-      <IpadP />
-      <IpadL />
-      <PhoneL>
-        <Video video='media/heineken.mp4' poster='media/heineken.jpg' />
-      </PhoneL>
-    </Devices>
-    <h1>{name}</h1>
-    <Blockquote>{description}</Blockquote>
+    <PrintHide>
+      <Devices px={20} mt={40} mb={60} id='devices'>
+        <Fili />
+        <Desktop>
+          <Video video='media/tnt.mp4' poster='media/tnt.jpg' />
+        </Desktop>
+        <Laptop>
+          <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' />
+        </Laptop>
+        <PhoneP />
+        <IpadP />
+        <IpadL />
+        <PhoneL>
+          <Video video='media/heineken.mp4' poster='media/heineken.jpg' />
+        </PhoneL>
+      </Devices>
+      <h1>{name}</h1>
+      <Blockquote>{headline}</Blockquote>
+    </PrintHide>
+
+    <PrintShow>
+      <h4>Summary</h4>
+      <Blockquote dangerouslySetInnerHTML={{__html: description}} />
+    </PrintShow>
   </Bio>
 )

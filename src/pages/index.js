@@ -13,7 +13,7 @@ export default ({ data }) => {
       'email': `mailto: ${siteMetadata.bio.email}`,
       'image': 'filidor-wiese.jpg',
       'jobTitle': siteMetadata.bio.title,
-      'description': siteMetadata.bio.description,
+      'description': siteMetadata.bio.headline,
       'name': siteMetadata.bio.name,
       'telephone': siteMetadata.bio.phone,
       'url': siteMetadata.url
@@ -24,7 +24,7 @@ export default ({ data }) => {
     <main>
       <Helmet
         title={pageTitle}
-        meta={[{ name: 'description', content: siteMetadata.bio.description }]}
+        meta={[{ name: 'description', content: siteMetadata.bio.headline }]}
         script={[schemaOrg]}
       />
       <div>
@@ -45,7 +45,7 @@ export const query = graphql`
           email
           phone
           title
-          description
+          headline
         }
       }
     }
@@ -64,7 +64,6 @@ export const query = graphql`
             tags
             video
             poster
-            printonly
           }
         }
       }

@@ -12,15 +12,7 @@ const Browser = styled.div`
   ${props => props.browser && css`
     background: url(${browser}) 0 0 no-repeat;
     padding-top: 8.5%;
-    
-    .r5-wraper {
-      padding: 0 2px;
-    }
   `}
-  
-  .r5-controls-hidden, r5-overlay, r5-content {
-    display: none;
-  }
 `
 
 class Video extends React.PureComponent {

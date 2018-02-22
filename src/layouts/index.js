@@ -5,6 +5,7 @@ import { Flex, Box } from 'grid-styled'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Doormat from '../components/Doormat'
+import PrintHide from '../components/PrintHide'
 import { colors, breakpoints } from '../utils/theme'
 
 const Container = styled(Box)`
@@ -40,15 +41,17 @@ export default ({ children, data }) => {
           </Container>
         </PageFlex>
         <DoormatFlex>
-          <Container px={20} py={80} mx="auto">
+          <Container px={20} py={[40, 80]} mx="auto">
             <Doormat bio={siteMetadata.bio} />
           </Container>
         </DoormatFlex>
-        <FooterFlex>
-          <Container px={20} py={160} mx="auto">
-            <Footer bio={siteMetadata.bio} />
-          </Container>
-        </FooterFlex>
+        <PrintHide>
+          <FooterFlex>
+            <Container px={20} py={[40, 100]} mx="auto">
+              <Footer bio={siteMetadata.bio} />
+            </Container>
+          </FooterFlex>
+        </PrintHide>
       </div>
     </ThemeProvider>
   )
@@ -60,11 +63,22 @@ export const query = graphql`
       siteMetadata {
         bio {
           name
+          nationality
           email
           phone
-          description
           title
-          other
+          headline
+          description
+          earlier
+          url
+          education {
+            year
+            title
+          },
+          recommendations {
+            author
+            quote
+          }
         }
         social {
           github

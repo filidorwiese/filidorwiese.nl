@@ -1,5 +1,5 @@
 import Typography from 'typography'
-import { colors } from './theme'
+import { breakpoints, colors } from './theme'
 
 const typography = new Typography({
   baseFontSize: '18px',
@@ -29,11 +29,18 @@ const typography = new Typography({
       ...adjustFontSizeTo('16px'),
       'letter-spacing': '0'
     },
-    blockquote: {
+    'header blockquote': {
       ...adjustFontSizeTo('28px'),
     },
-    footer: {
-      ...adjustFontSizeTo('28px')
+    'footer': {
+      ...adjustFontSizeTo('28px'),
+      'line-height': 1.6
+    },
+    [`@media (max-width: ${breakpoints[0]})`]: {
+      footer: {
+        ...adjustFontSizeTo('18px'),
+        'line-height': 1.6
+      }
     }
   })
 })

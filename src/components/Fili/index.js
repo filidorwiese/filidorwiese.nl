@@ -12,8 +12,8 @@ const Wrapper = styled.div`
   .fili {
     position: absolute;
     z-index: 1000;
-    top: 85%;
-    left: 13%;
+    top: 80%;
+    left: 31%;
     
     background: url(${filiSprites}) 0 0 no-repeat;
     width: 76px;
