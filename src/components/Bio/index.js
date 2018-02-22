@@ -115,9 +115,9 @@ const IpadP = styled.div`
 const IpadL = styled.div`
   position: absolute;
   z-index: 5;
-  top: 65.5%;
+  top: 65%;
   left: 8%;
-  width: 13%;
+  width: 13.1%;
   height: 30%;
   background: url(${ipadL}) 0 0 no-repeat;
   background-size: cover;

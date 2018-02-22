@@ -6,6 +6,7 @@ import Waypoint from 'react-waypoint'
 import { withPrefix } from 'gatsby-link'
 
 import browser from '../../assets/images/browser.svg'
+import { breakpoints } from '../../utils/theme'
 
 const Browser = styled.div`
   ${props => props.browser && css`
@@ -27,66 +28,61 @@ class Video extends React.PureComponent {
     super(props)
     this.state = {
       isPlaying: false,
-      inView: false
+      inViewOnce: false,
+      isMobile: window.matchMedia(`(max-width: ${breakpoints[0]})`).matches
     }
   }
 
   handleEnter = () => {
     this.setState({
-      inView: true
+      inViewOnce: true
     })
-    if (this.videoEl) {
-      this.videoEl.play()
-      this.setState({
-        isPlaying: true
-      })
-    } else {
-      this.videoEl = ReactDOM.findDOMNode(this.refs.video)
-      setTimeout(this.handleEnter, 1000)
+
+    if (this.isEnabled()) {
+      if (this.videoEl) {
+        this.videoEl.play()
+        this.setState({
+          isPlaying: true
+        })
+      } else {
+        this.videoEl = ReactDOM.findDOMNode(this.refs.video)
+        setTimeout(this.handleEnter, 1000)
+      }
     }
   }
 
   handleLeave = () => {
-    if (this.videoEl) {
-      this.videoEl.pause()
-      this.setState({
-        isPlaying: false
-      })
-    } else {
-      this.videoEl = ReactDOM.findDOMNode(this.refs.video)
-      setTimeout(this.handleLeave, 1000)
+    if (this.isEnabled()) {
+      if (this.videoEl) {
+        this.videoEl.pause()
+        this.setState({
+          isPlaying: false
+        })
+      } else {
+        this.videoEl = ReactDOM.findDOMNode(this.refs.video)
+        setTimeout(this.handleLeave, 1000)
+      }
     }
   }
 
-  togglePlay = () => {
-    if (this.state.isPlaying) {
-      this.videoEl.pause()
-      this.setState({
-        isPlaying: false
-      })
-    } else {
-      this.videoEl.play()
-      this.setState({
-        isPlaying: true
-      })
-    }
+  isEnabled = () => {
+    return this.state.inViewOnce && !(this.state.isMobile && this.props.disableOnMobile)
   }
 
   render() {
     return (
       <Waypoint onEnter={this.handleEnter} onLeave={this.handleLeave}>
         <Browser browser={this.props.browser}>
-          { this.state.inView && (
-              <video ref='video'
-                   width='100%'
-                   height='auto'
-                   muted
-                   preload='none'
-                   loop
-                   poster={this.props.poster}>
-              <source src={withPrefix(this.props.video)} type='video/mp4' />
-            </video>)
-          }
+           <video ref='video'
+                 width='100%'
+                 height='auto'
+                 muted
+                 preload='none'
+                 loop
+                 poster={this.props.poster}
+                 disableRemotePlayback>
+             {this.isEnabled() && <source src={withPrefix(this.props.video)} type='video/mp4' />}
+          </video>
         </Browser>
       </Waypoint>
     )
@@ -96,7 +92,8 @@ class Video extends React.PureComponent {
 Video.propTypes = {
   video: PropTypes.string,
   poster: PropTypes.string,
-  browser: PropTypes.bool
+  browser: PropTypes.bool,
+  disableOnMobile: PropTypes.bool
 }
 
 Video.defaultProps = {

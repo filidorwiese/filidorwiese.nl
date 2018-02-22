@@ -76,7 +76,7 @@ class Project extends React.PureComponent {
           </ProjectDescription>
           <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
             <a href={url} target='_blank'>
-              <Video video={video} poster={poster} browser />
+              <Video video={video} poster={poster} browser disableOnMobile />
             </a>
           </ProjectVideo>
         </Flex>
