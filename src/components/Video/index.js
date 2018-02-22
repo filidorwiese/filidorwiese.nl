@@ -9,7 +9,7 @@ import browser from '../../assets/images/browser.svg'
 
 const Browser = styled.div`
   ${props => props.browser && css`
-    background: 0 0 url(${browser}) no-repeat;
+    background: url(${browser}) 0 0 no-repeat;
     padding-top: 8.5%;
     
     .r5-wraper {

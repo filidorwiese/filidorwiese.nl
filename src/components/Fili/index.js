@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     top: 78%;
     left: 9%;
     
-    background: 0 0 url(${filiSprites}) no-repeat;
+    background: url(${filiSprites}) 0 0 no-repeat;
     width: 76px;
     height: 104px;
   }

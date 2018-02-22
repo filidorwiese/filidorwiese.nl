@@ -30,21 +30,21 @@ const Ul = styled.ul`
 `
 
 const LiTime = styled.li`
-  background: 0 4px url(${iconTime}) no-repeat;
+  background: url(${iconTime}) 0 4px no-repeat;
   background-size: 20px 20px;
   margin-left: 0;
   padding-left: 40px;
 `
 
 const LiTech = styled.li`
-  background: 0 4px url(${iconTech}) no-repeat;
+  background: url(${iconTech}) 0 4px no-repeat;
   background-size: 20px 20px;
   margin-left: 0;
   padding-left: 40px;
 `
 
 const LiLink = styled.li`
-  background: 0 4px url(${iconLink}) no-repeat;
+  background: url(${iconLink}) 0 4px no-repeat;
   background-size: 20px 20px;
   margin-left: 0;
   padding-left: 40px;
