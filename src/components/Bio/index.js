@@ -83,7 +83,7 @@ const Desktop = styled.div`
 const Laptop = styled.div`
   position: absolute;
   z-index: 10;
-  top: 54.6%;
+  top: 54%;
   left: 63%;
   width: 27%;
 `
@@ -92,8 +92,8 @@ const PhoneP = styled.div`
   position: absolute;
   z-index: 10;
   top: 76.5%;
-  left: 94.5%;
-  width: 4.3%;
+  left: 94.3%;
+  width: 4.5%;
   height: 17.5%;
   background: url(${phoneP}) 0 0 no-repeat;
   background-size: cover;
@@ -117,7 +117,7 @@ const IpadL = styled.div`
   z-index: 5;
   top: 65%;
   left: 8%;
-  width: 13.1%;
+  width: 13.2%;
   height: 30%;
   background: url(${ipadL}) 0 0 no-repeat;
   background-size: cover;

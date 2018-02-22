@@ -28,8 +28,7 @@ class Video extends React.PureComponent {
     super(props)
     this.state = {
       isPlaying: false,
-      inViewOnce: false,
-      isMobile: window.matchMedia(`(max-width: ${breakpoints[0]})`).matches
+      inViewOnce: false
     }
   }
 
@@ -66,7 +65,8 @@ class Video extends React.PureComponent {
   }
 
   isEnabled = () => {
-    return this.state.inViewOnce && !(this.state.isMobile && this.props.disableOnMobile)
+    const isMobile = typeof window !== 'undefined' && window.matchMedia(`(max-width: ${breakpoints[0]})`).matches
+    return this.state.inViewOnce && !(isMobile && this.props.disableOnMobile)
   }
 
   render() {
