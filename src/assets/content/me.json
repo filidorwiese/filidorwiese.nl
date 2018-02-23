@@ -11,8 +11,15 @@
     "url": "https://filidorwiese.nl",
     "education": [
       { "year": "2010", "title": "Linux Professional Institute Certification – Exam 101"},
-      { "year": "2009", "title": "Zend Certified Engineer Certificaat"},
-      { "year": "1998-2002", "title": "Media, Hanzehogeschool Groningen, Bachelor of Fine Arts (BFA), Digital Communication and Media/Multimedia, Hanzehogeschool Groningen"}
+      { "year": "2009", "title": "Zend Certified Engineer"},
+      { "year": "1998-2002", "title": "Digital Communication and Media/Multimedia, Hanzehogeschool Groningen, Bachelor of Fine Arts (BFA)"}
+    ],
+    "awards": [
+      { "year": "2013", "title": "FWA - Site of the Day, https://whois.wildlife.la" },
+      { "year": "2012", "title": "Awwwards - Site of the Day, https://whois.wildlife.la" },
+      { "year": "2011", "title": "Awwwards - Site of the Day, https://galaxy.fili.nl" },
+      { "year": "2002", "title": "Klaas Dijkstra Academy award" },
+      { "year": "2002", "title": "René Coelho award" }
     ],
     "recommendations": [
       { "author": "Niall McLoughlin, Global Director of Product Development, TNT", "quote": "One of the best developers in the Netherlands. Period. Fili has a wealth of experience in building amazing apps and is highly respected by his peers. Constantly looking for ways to improve, try out new technologies and seeking the perfect customer experience, Fili has a natural tendency to understand the customer dilemma and rally the whole team around delivery of the best solution possible in a pragmatic and iterative manner. Filidor was one of our first recruits and he helped us right the way from building our first prototype through getting one of our flagship products developed, delivered and operated in circa 50 countries worldwide. We really value top quality people. What I've learned is that the best people only want to work with the best people. Having people like Fili in your team will make it much easier for you to find better talent as developers love working with him." },

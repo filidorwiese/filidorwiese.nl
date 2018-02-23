@@ -57,12 +57,14 @@ const Doormat = ({ bio }) => {
         <PrintNoBreak>
           <h4>Education</h4>
           <table>
-            {bio.education.map(({year, title}, key) => (
-              <tr key={key}>
-                <td>{year}</td>
-                <td>{title}</td>
-              </tr>
-            ))}
+            <tbody>
+              {bio.education.map(({year, title}, key) => (
+                <tr key={key}>
+                  <td>{year}</td>
+                  <td>{title}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </PrintNoBreak>
         <h4>Recommendations</h4>
@@ -77,12 +79,14 @@ const Doormat = ({ bio }) => {
         <PrintNoBreak>
           <h4>Honors and Awards</h4>
           <table>
-            {bio.awards.map(({year, title}, key) => (
-              <tr key={key}>
-                <td>{year}</td>
-                <td>{title}</td>
-              </tr>
-            ))}
+            <tbody>
+              {bio.awards.map(({year, title}, key) => (
+                <tr key={key}>
+                  <td>{year}</td>
+                  <td>{title}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </PrintNoBreak>
       </PrintShow>

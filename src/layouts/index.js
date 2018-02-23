@@ -45,13 +45,11 @@ export default ({ children, data }) => {
             <Doormat bio={siteMetadata.bio} />
           </Container>
         </DoormatFlex>
-        <PrintHide>
-          <FooterFlex>
-            <Container px={20} py={[40, 100]} mx="auto">
-              <Footer bio={siteMetadata.bio} />
-            </Container>
-          </FooterFlex>
-        </PrintHide>
+        <FooterFlex>
+          <Container px={20} py={[40, 100]} mx="auto">
+            <Footer bio={siteMetadata.bio} />
+          </Container>
+        </FooterFlex>
       </div>
     </ThemeProvider>
   )
@@ -74,7 +72,11 @@ export const query = graphql`
           education {
             year
             title
-          },
+          }
+          awards {
+            year
+            title
+          }
           recommendations {
             author
             quote
