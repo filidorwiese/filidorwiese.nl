@@ -24,6 +24,7 @@ const typography = new Typography({
     },
     'h2, h3, h4': {
       ...adjustFontSizeTo('28px'),
+      'page-break-after': 'avoid'
     },
     'article li': {
       ...adjustFontSizeTo('16px'),
