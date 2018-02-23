@@ -72,6 +72,7 @@ class Video extends React.PureComponent {
                  preload='none'
                  loop
                  poster={this.props.poster}
+                 playsinline
                  disableRemotePlayback>
              {this.isEnabled() && <source src={withPrefix(this.props.video)} type='video/mp4' />}
           </video>

@@ -1,0 +1,38 @@
+Options -Indexes +FollowSymLinks
+
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    # Redirect http: to https:
+    RewriteCond %{SERVER_PORT} !^443
+    RewriteRule ^ https://filidorwiese.nl%{REQUEST_URI} [R=301,L]
+
+    # Redirect non-www to www
+    RewriteCond %{HTTP_HOST} !^filidorwiese\.nl
+    RewriteRule ^ https://filidorwiese.nl%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresByType application/x-font-ttf "access plus 1 year"
+    ExpiresByType application/x-font-opentype "access plus 1 year"
+    ExpiresByType application/x-font-woff "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/plain "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/html "access"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Strict-Transport-Security "max-age=16070400; includeSubDomains"
+</IfModule>

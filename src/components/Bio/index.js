@@ -15,7 +15,7 @@ import Fili from '../Fili'
 
 const Bio = styled(Box)`
   text-align: center;
-
+  
   @media print {
     text-align: left;
   }
@@ -31,6 +31,11 @@ const Blockquote = styled.blockquote`
   
   @media (max-width: 40em) {
     text-align: left;
+  }
+  
+  @media (min-width: ${breakpoints[0]}) {
+    max-width: 700px;
+    margin: 0 auto;
   }
   
   @media print {
