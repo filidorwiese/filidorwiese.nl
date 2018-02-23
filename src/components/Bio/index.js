@@ -10,6 +10,7 @@ import ipadL from '../../assets/images/devices/ipad-l.jpg'
 import Video from '../Video'
 import PrintHide from '../PrintHide'
 import PrintShow from '../PrintShow'
+import PrintNoBreak from '../PrintNoBreak'
 import Fili from '../Fili'
 
 const Bio = styled(Box)`
@@ -172,8 +173,10 @@ export default ({ name, description, headline }) => (
     </PrintHide>
 
     <PrintShow>
-      <h4>Summary</h4>
-      <Blockquote dangerouslySetInnerHTML={{__html: description}} />
+      <PrintNoBreak>
+        <h4>Summary</h4>
+        <Blockquote dangerouslySetInnerHTML={{__html: description}} />
+      </PrintNoBreak>
     </PrintShow>
   </Bio>
 )

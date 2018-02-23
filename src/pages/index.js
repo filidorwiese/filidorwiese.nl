@@ -4,7 +4,7 @@ import Project from '../components/Project'
 
 export default ({ data }) => {
   const siteMetadata = data.site.siteMetadata
-  const pageTitle = `${siteMetadata.bio.name}, ${siteMetadata.bio.title}`
+  const pageTitle = `${siteMetadata.bio.name}, ${siteMetadata.bio.title} - Showcase`
   const schemaOrg = {
     type: 'application/ld+json',
     innerHTML: JSON.stringify({
@@ -58,6 +58,7 @@ export const query = graphql`
           html
           frontmatter {
             title
+            role,
             url
             sortdate
             date

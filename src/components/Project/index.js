@@ -9,16 +9,20 @@ import IconTime from '../../components/Icons/time'
 import IconLink from '../../components/Icons/link'
 import Anchor from '../../components/Anchor'
 import Video from '../../components/Video'
+import PrintShow from '../../components/PrintShow'
 import PrintNoBreak from '../../components/PrintNoBreak'
 
-const ProjectWrapper = styled(Flex)`
-  @media print {
-    padding-bottom: 0;
-  }
+const ProjectWrapper = styled.article`
   @media screen {
-    .printonly {
+    &.printonly {
       display: none;
     }
+  }
+`
+
+const ProjectFlex = styled(Flex)`
+  @media print {
+    padding-bottom: 0;
   }
 `
 
@@ -26,7 +30,15 @@ const ProjectLine = styled(Box)`
   border-top: 2px solid ${colors.extreLightBlue};
 `
 
-const ProjectDescription = styled(Box)``
+const ProjectDescription = styled(Box)`
+  a {
+    color: ${colors.lightBlue}
+  }
+   
+  a:hover {
+    color: ${colors.darkBlue}
+  }
+`
 
 const ProjectVideo = styled(Box)`
   min-width: 30%;
@@ -61,18 +73,19 @@ class Project extends React.PureComponent {
   render() {
     const {
       html,
-      frontmatter: { title, url, date, tags, video, poster, printonly },
+      frontmatter: { title, role, url, date, tags, video, poster, printonly },
     } = this.props.project
 
     return (
-      <article className={printonly ? 'printonly' : ''}>
+      <ProjectWrapper className={printonly ? 'printonly' : ''}>
         <PrintNoBreak>
-          <ProjectWrapper flexWrap={['wrap', 'nowrap']} py={60}>
+          <ProjectFlex flexWrap={['wrap', 'nowrap']} py={60}>
             <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
             <ProjectDescription flex="1 1 auto" pl={[50, 40]} pr={[0, 60]} order={20}>
               <h2>{title}</h2>
               <p dangerouslySetInnerHTML={{ __html: html}} />
               <Ul>
+                <PrintShow><li>{role}</li></PrintShow>
                 <li><IconTime />{date}</li>
                 <li><IconTech />{tags}</li>
                 {url && <li>
@@ -86,9 +99,9 @@ class Project extends React.PureComponent {
                 <Video video={video} poster={poster} browser disableOnMobile />
               </a>
             </ProjectVideo>
-          </ProjectWrapper>
+          </ProjectFlex>
         </PrintNoBreak>
-      </article>
+      </ProjectWrapper>
     )
   }
 }

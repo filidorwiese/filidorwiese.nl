@@ -5,7 +5,6 @@ import Video from '../Video'
 import PrintHide from '../PrintHide'
 import PrintShow from '../PrintShow'
 import PrintNoBreak from '../PrintNoBreak'
-import PrintForceBreak from '../PrintForceBreak'
 
 const Wrapper = styled.div`  
   @media screen {
@@ -26,7 +25,6 @@ const BrowserMini = styled(Box)`
 const Doormat = ({ bio }) => {
   return (
     <Wrapper>
-      <PrintForceBreak />
       <PrintNoBreak>
         <h4>Other projects</h4>
         <p>
@@ -69,12 +67,12 @@ const Doormat = ({ bio }) => {
         </PrintNoBreak>
         <h4>Recommendations</h4>
         {bio.recommendations.map(({author, quote}, key) => (
-          <PrintNoBreak>
-            <aside key={key}>
+          <aside key={key}>
+            <PrintNoBreak>
               <p>{author}</p>
               <blockquote>&ldquo;{quote}&rdquo;</blockquote>
-            </aside>
-          </PrintNoBreak>
+            </PrintNoBreak>
+          </aside>
         ))}
         <PrintNoBreak>
           <h4>Honors and Awards</h4>

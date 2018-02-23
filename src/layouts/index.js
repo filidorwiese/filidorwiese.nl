@@ -5,7 +5,6 @@ import { Flex, Box } from 'grid-styled'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Doormat from '../components/Doormat'
-import PrintHide from '../components/PrintHide'
 import { colors, breakpoints } from '../utils/theme'
 
 const Container = styled(Box)`
