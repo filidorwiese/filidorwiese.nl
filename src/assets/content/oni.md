@@ -1,5 +1,6 @@
 ---
-title: Oni
+title: Oni Hosting
+role: Fullstack developer
 url: https://www.oni.nl/
 sortdate: "2016-02-01"
 date: "September 2015 - February 2016"
@@ -8,4 +9,4 @@ video: "media/oni.mp4"
 poster: "media/oni.jpg"
 printonly: false
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit sed vulputate. Pharetra magna ac placerat vestibulum lectus. Vitae nunc sed velit dignissim sodales.
+Oni is my own company offering web hosting services. It started in 1999 and grew from a single server setup into a large private cloud on self-maintained hardware. These years have given me experience of all facets of the web, from networking, high-availability, server maintenance, dns, mail, virtualization to building custom user interfaces for our clients to manage their domains and services. The current website is build in Angularjs with Zend Framework for the API’s.

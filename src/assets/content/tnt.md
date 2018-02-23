@@ -1,5 +1,6 @@
 ---
 title: Fedex / TNT Express
+role: Senior Front-end developer, Lead Front-end Chapter
 url: https://www.tnt.com/express/nl_nl/site/home.html
 sortdate: "2016-07-01"
 date: "July 2014 - July 2016"

@@ -1,5 +1,6 @@
 ---
-title: KLM
+title: KLM Airline
+role: Senior Front-end developer
 url: https://www.klm.com/destinations/nl/nl/search
 sortdate: "2013-06-01"
 date: "June 2013 - February 2014"
@@ -8,4 +9,4 @@ video: "media/klm.mp4"
 poster: "media/klm.jpg"
 printonly: false
 ---
-Bij KLM kwam ik binnen in het team waar de focus lag op de homepage, een uitdagend project waar code van diverse andere teams samen kwam en probleemloos naast elkaar moest draaien. Na afronding hiervan ben ik overgestapt op een geheel nieuw project, genaamd TIF (Travel Inspiration Finder), waarbij ik de rol van lead front-end developer kreeg. Het doel van dit project was om een zeer interactieve en visueel aantrekkelijke reisgids voor de nog oriënterende gebruiker te ontwikkelen. Samen met een andere front-ender, twee back-enders en een cms-ontwikkelaar hebben we een zoektool ontwikkeld waarmee gebruikers middels filters (tempratuur, budget, interesse, e.d.) een bestemming konden vinden uit ruim 600 bestemmingen met de bijbehorende reisinformatie zoals bezienswaardigheden, hotels en dergelijke. De tool is beschikbaar in 30+ talen.
+At KLM I started out in the Scrum team responsible for the homepage, a challenging project where code of other teams had to come together. After that I’ve worked on the Travel Inspiration Finder, a visually pleasing online guide for travelers who are in the orientation phase of their next journey. It offers information about 600+ destinations in 30 languages. The tool has been build with Backbone and was the first project where I applied both unit and e2e testing to front-end code.

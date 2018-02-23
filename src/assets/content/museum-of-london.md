@@ -1,11 +1,12 @@
 ---
-title: Museum of London – Fire of London
+title: Museum of London
+role: Senior Front-end developer
 url: http://www.fireoflondon.org.uk/
 sortdate: "2016-08-01"
 date: "August 2016"
-tags: Leaflet
+tags: Javascript, Google Maps Api
 video: "media/londonfire.mp4"
 poster: "media/londonfire.jpg"
 printonly: false
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit sed vulputate. Pharetra magna ac placerat vestibulum lectus. Vitae nunc sed velit dignissim sodales.
+An online experience telling the story of the Great Fire of London. My involvement was to technically adapt three historic hand-drawn maps from before and after the fire onto the current map of the city.  It entailed automated stretching, transforming and cutting the very large image files and visualizing them using the Google Maps Api. Agency: Logirix, Design: Fabrique

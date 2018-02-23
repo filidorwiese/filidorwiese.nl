@@ -1,10 +1,11 @@
 ---
 title: Heineken
+role: Front-end developer
 sortdate: "2013-02-01"
 date: "December 2012 - February 2013"
-tags: Javascript, CSS, HTML, Mustache, Responsive
+tags: Javascript, CSS, HTML, Mustache, Responsive, IE7
 video: "media/heineken.mp4"
 poster: "media/heineken.jpg"
 printonly: false
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit sed vulputate. Pharetra magna ac placerat vestibulum lectus. Vitae nunc sed velit dignissim sodales.
+To visualize the fact that Heineken is “the world’s most international brewer”, Mathijs Alderliesten (visual designer) and myself developed an animated, interactive map that a user could use to explore information about brands and breweries world wide. The responsive and cross-browser requirements of the assignment made it a challenging but fun project. Agency: Jungle Minds

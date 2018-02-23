@@ -1,11 +1,12 @@
 ---
 title: Amsterdam Arena
+role: Front-end developer
 url: https://www.amsterdamarena.nl
 sortdate: "2013-01-01"
 date: "August 2012 - January 2013"
-tags: Javascript, CSS, HTML
+tags: Javascript, CSS, HTML, Responsive
 video: "media/amsterdamarena.mp4"
 poster: "media/amsterdamarena.jpg"
 printonly: false
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit sed vulputate. Pharetra magna ac placerat vestibulum lectus. Vitae nunc sed velit dignissim sodales.
+Via agency Jungle Minds I was asked to develop the front-end for the largest stadium in the Netherlands, now called the Johan Cruyff Arena. The project entailed a difficult design at the time that needed to be responsive and cross-browser compatible from IE7 upwards. The back-end was done by GX software.
