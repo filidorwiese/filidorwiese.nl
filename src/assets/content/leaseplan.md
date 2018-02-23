@@ -9,4 +9,4 @@ video: "media/leaseplan.mp4"
 poster: "media/leaseplan.jpg"
 printonly: false
 ---
-Starting out with only a handful of people, we’ve been tasked with rebuilding a global platform from scratch for the different services and countries that Leaseplan has to offer. This project quickly grew into a full blown IT department with many developers collaborating to build the best user experience possible. Later, in my role as Tech Lead, I’ve focused on code quality, team productivity and long-term vision. It is a very vibrant atmosphere where I’ve definitely learned a lot.
+Starting out with only a handful of people, we’ve been tasked with rebuilding a global platform from scratch for the different services that Leaseplan has to offer throughout Europe. This project quickly grew into a full blown department with many experienced developers collaborating to build the best user experience possible. Later, in my role as Tech Lead, I’ve focused on code quality, team productivity and long-term vision. It has been a very vibrant atmosphere where I’ve definitely learned a lot.

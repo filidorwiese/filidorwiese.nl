@@ -1,7 +1,7 @@
 ---
 title: Schiphol Airport
 role: Front-end developer
-sortdate: "2013-05-01"
+sortdate: "2011-08-01"
 date: "Augustus 2011, Mei 2013"
 tags: Prototyping, Javascript, CSS, HTML
 video: "media/schiphol.mp4"

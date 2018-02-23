@@ -9,4 +9,4 @@ video: "media/klm.mp4"
 poster: "media/klm.jpg"
 printonly: false
 ---
-At KLM I started out in the Scrum team responsible for the homepage, a challenging project where code of other teams had to come together. After that I’ve worked on the Travel Inspiration Finder, a visually pleasing online guide for travelers who are in the orientation phase of their next journey. It offers information about 600+ destinations in 30 languages. The tool has been build with Backbone and was the first project where I applied both unit and e2e testing to front-end code.
+At KLM I started out in the Scrum team responsible for the homepage, a challenging project where very diverse code of other teams had to come together. After that I’ve worked on the Travel Inspiration Finder, a visually pleasing online guide for travelers who are in the orientation phase of their next journey. It offers information about 600+ destinations in 30 languages. The tool has been build with Backbone and was the first project where I applied both unit and e2e testing to front-end code.

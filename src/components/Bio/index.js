@@ -32,6 +32,10 @@ const Blockquote = styled.blockquote`
   @media (max-width: 40em) {
     text-align: left;
   }
+  
+  @media print {
+    page-break-after: always;
+  }
 `
 
 const scrollUpDown = keyframes`

@@ -42,6 +42,11 @@ const typography = new Typography({
         ...adjustFontSizeTo('18px'),
         'line-height': 1.6
       }
+    },
+    [`@media print`]: {
+      html: {
+        'font-size': '85%'
+      }
     }
   })
 })

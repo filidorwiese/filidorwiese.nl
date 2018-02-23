@@ -1,6 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import Project from '../components/Project'
+import PrintShow from '../components/PrintShow'
 
 export default ({ data }) => {
   const siteMetadata = data.site.siteMetadata
@@ -28,6 +29,7 @@ export default ({ data }) => {
         script={[schemaOrg]}
       />
       <div>
+        <PrintShow><h4>Recent Projects</h4></PrintShow>
         {projects.map((project, key) => (
           <Project key={key} project={project.node} />
         ))}
