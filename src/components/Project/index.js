@@ -9,12 +9,16 @@ import IconTime from '../../components/Icons/time'
 import IconLink from '../../components/Icons/link'
 import Anchor from '../../components/Anchor'
 import Video from '../../components/Video'
+import PrintNoBreak from '../../components/PrintNoBreak'
 
 const ProjectWrapper = styled(Flex)`
   @media print {
     padding-bottom: 0;
-    page-break-inside: avoid;
-    break-inside: avoid;
+  }
+  @media screen {
+    .printonly {
+      display: none;
+    }
   }
 `
 
@@ -57,31 +61,33 @@ class Project extends React.PureComponent {
   render() {
     const {
       html,
-      frontmatter: { title, url, date, tags, video, poster },
+      frontmatter: { title, url, date, tags, video, poster, printonly },
     } = this.props.project
 
     return (
-      <article>
-        <ProjectWrapper flexWrap={['wrap', 'nowrap']} py={60}>
-          <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
-          <ProjectDescription flex="1 1 auto" pl={[50, 40]} pr={[0, 60]} order={20}>
-            <h2>{title}</h2>
-            <p dangerouslySetInnerHTML={{ __html: html}} />
-            <Ul>
-              <li><IconTime />{date}</li>
-              <li><IconTech />{tags}</li>
-              {url && <li>
-                <IconLink />
-                <Anchor href={url} target='_blank'>{stripDomain(url)}</Anchor>
-              </li>}
-            </Ul>
-          </ProjectDescription>
-          <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
-            <a href={url} target='_blank'>
-              <Video video={video} poster={poster} browser disableOnMobile />
-            </a>
-          </ProjectVideo>
-        </ProjectWrapper>
+      <article className={printonly ? 'printonly' : ''}>
+        <PrintNoBreak>
+          <ProjectWrapper flexWrap={['wrap', 'nowrap']} py={60}>
+            <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
+            <ProjectDescription flex="1 1 auto" pl={[50, 40]} pr={[0, 60]} order={20}>
+              <h2>{title}</h2>
+              <p dangerouslySetInnerHTML={{ __html: html}} />
+              <Ul>
+                <li><IconTime />{date}</li>
+                <li><IconTech />{tags}</li>
+                {url && <li>
+                  <IconLink />
+                  <Anchor href={url} target='_blank'>{stripDomain(url)}</Anchor>
+                </li>}
+              </Ul>
+            </ProjectDescription>
+            <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
+              <a href={url} target='_blank'>
+                <Video video={video} poster={poster} browser disableOnMobile />
+              </a>
+            </ProjectVideo>
+          </ProjectWrapper>
+        </PrintNoBreak>
       </article>
     )
   }

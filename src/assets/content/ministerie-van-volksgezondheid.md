@@ -8,4 +8,4 @@ video: "media/ministerievolksgezondheid.mp4"
 poster: "media/ministerievolksgezondheid.jpg"
 printonly: false
 ---
-A project to bring more awareness about antibiotic resistance to healthcare providers. Using the webcam a user could generate a digital signature of his/her hand from bacteria. A highly animated website 
+A campaign website of the Dutch government to bring more awareness about antibiotic resistance to health care providers. Using the webcam a user could grow a digital hand signature from bacteria. A large poster of this unique signature would then be delivered to be hung on the wall of the practitioner. My involvement in the project included animating the signature and generating the poster image using WebGL. Agency: Super Hero Cheesecake.

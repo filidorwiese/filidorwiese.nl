@@ -64,6 +64,7 @@ export const query = graphql`
             tags
             video
             poster
+            printonly
           }
         }
       }
