@@ -308,6 +308,7 @@ class Fili extends React.PureComponent {
     this.$el.addClass('shrink')
     setTimeout(() => {
       this.props.isDragging(false)
+      this.el.remove()
     }, 2000)
   }
 
