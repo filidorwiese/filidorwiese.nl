@@ -165,16 +165,16 @@ export default ({ name, description, headline }) => (
       <Devices px={20} mt={40} mb={60} id='devices'>
         <Fili />
         <Desktop>
-          <Video video='media/tnt.mp4' poster='media/tnt.jpg' />
+          <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
         </Desktop>
         <Laptop>
-          <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' />
+          <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' disableOnMobile />
         </Laptop>
         <PhoneP />
         <IpadP />
         <IpadL />
         <PhoneL>
-          <Video video='media/heineken.mp4' poster='media/heineken.jpg' />
+          <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
         </PhoneL>
       </Devices>
       <h1>{name}</h1>
