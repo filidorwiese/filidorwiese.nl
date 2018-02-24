@@ -9,4 +9,4 @@ video: "media/oni.mp4"
 poster: "media/oni.jpg"
 printonly: false
 ---
-Oni is my own company offering web hosting services. It started in 1999 and grew from a single server setup into a substantial private cloud on self-maintained hardware. These years have given me experience of all facets of the web, from networking, high-availability, server maintenance, dns, caching, mail, virtualization to building custom backends and user interfaces for our clients to manage their domains and services. The current website is build in Angularjs with Zend Framework for the API’s.
+Oni is my own hosting company offering web hosting services. It started in 1999 and grew from a single server setup into a substantial private cloud on self-maintained hardware. This has given me experience in all facets of the web, from networking, high-availability, server maintenance, dns, caching, mail, virtualization to building custom backends and user interfaces for our clients so they can manage their domains and services. The current website is build in Angularjs with Zend Framework for the API’s.

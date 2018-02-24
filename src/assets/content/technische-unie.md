@@ -9,4 +9,4 @@ video: "media/technischeunie.mp4"
 poster: "media/technischeunie.jpg"
 printonly: false
 ---
-The MijnTU project was the first that I participated in a Scrum/Agile work environment, where several teams worked together on one of the largest web shops in Europe. As the front-end coder I collaborated closely with the back-end and visual design to turn the many static designs into functional, cross-browser templates.
+The MijnTU project was the first that I participated in in a Scrum/Agile work environment, where several teams worked together on one of the largest web shops in Europe. As the front-end coder I collaborated closely with the back-end and visual design to turn the many static designs into functional, cross-browser templates.

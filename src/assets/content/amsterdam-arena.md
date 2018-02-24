@@ -9,4 +9,4 @@ video: "media/amsterdamarena.mp4"
 poster: "media/amsterdamarena.jpg"
 printonly: false
 ---
-Via agency Jungle Minds I was asked to develop the front-end for the largest stadium in the Netherlands, now called the Johan Cruyff Arena. The project entailed a difficult design at the time that needed to be responsive and cross-browser compatible from IE7 upwards. The back-end was done by GX software.
+Jungle Minds asked me to develop the front-end for the largest stadium in the Netherlands, now called the Johan Cruyff Arena. The project entailed a difficult design at that time that needed to be responsive and cross-browser compatible from IE7 upwards. The back-end was done by GX software.

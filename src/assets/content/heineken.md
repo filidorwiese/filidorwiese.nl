@@ -8,4 +8,4 @@ video: "media/heineken.mp4"
 poster: "media/heineken.jpg"
 printonly: false
 ---
-To visualize the fact that Heineken is “the world’s most international brewer”, Mathijs Alderliesten (visual designer) and myself developed an animated, interactive map that a user could use to explore information about their brands and breweries world wide. The responsive and cross-browser requirements of the assignment made it a challenging but fun project. Agency: Jungle Minds
+Mathijs Alderliesten (visual designer) and myself developed an animated, interactive map that a user could use to explore information about Heineken's brands and breweries world wide. This map helped to visualize the fact that they are “the world’s most international brewer”. The responsive and cross-browser requirements of the assignment made it a challenging but fun project. Agency: Jungle Minds
