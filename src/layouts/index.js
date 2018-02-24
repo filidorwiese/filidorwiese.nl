@@ -5,6 +5,7 @@ import { Flex, Box } from 'grid-styled'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Doormat from '../components/Doormat'
+import PrintHide from '../components/PrintHide'
 import { colors, breakpoints } from '../utils/theme'
 
 const Container = styled(Box)`
@@ -44,11 +45,13 @@ export default ({ children, data }) => {
             <Doormat bio={siteMetadata.bio} />
           </Container>
         </DoormatFlex>
-        <FooterFlex>
-          <Container px={20} py={[40, 100]} mx="auto">
-            <Footer bio={siteMetadata.bio} />
-          </Container>
-        </FooterFlex>
+        <PrintHide>
+          <FooterFlex>
+            <Container px={20} py={[40, 100]} mx="auto">
+              <Footer bio={siteMetadata.bio} />
+            </Container>
+          </FooterFlex>
+        </PrintHide>
       </div>
     </ThemeProvider>
   )

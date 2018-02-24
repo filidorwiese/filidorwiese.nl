@@ -8,4 +8,4 @@ video: "media/schiphol.mp4"
 poster: "media/schiphol.jpg"
 printonly: false
 ---
-This project included building two separate prototypes for the website of Schiphol Airport that was used for User Experience testing. It has been the start of my regular collaboration with digital agency Jungle Minds, who have since been like a family to me.
+This project has been the start of my regular and fruitful collaboration with digital agency Jungle Minds. My work included building two separate prototypes for the website of Schiphol Airport. The Flight Finder and Parking modules where used for extensive User Experience testing.
