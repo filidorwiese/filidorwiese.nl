@@ -6,7 +6,6 @@ import Waypoint from 'react-waypoint'
 import { withPrefix } from 'gatsby-link'
 
 import browser from '../../assets/images/browser.svg'
-import { breakpoints } from '../../utils/theme'
 
 const Browser = styled.div`
   ${props => props.browser && css`
@@ -57,7 +56,7 @@ class Video extends React.PureComponent {
   }
 
   isEnabled = () => {
-    const isMobile = typeof window !== 'undefined' && window.matchMedia(`(max-width: ${breakpoints[0]})`).matches
+    const isMobile = typeof window !== 'undefined' && window.matchMedia(`(max-width: 768px)`).matches
     return this.state.inViewOnce && !(isMobile && this.props.disableOnMobile)
   }
 

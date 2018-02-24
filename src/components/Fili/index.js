@@ -1,12 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import 'jquery-spriteanimator'
 import 'jquery.easing'
+import PropTypes from 'prop-types'
 
 import filiSprites from '../../assets/images/fili-draggable.png'
 import cursorGrab from '../../assets/images/grab.png'
 import cursorGrabbing from '../../assets/images/grabbing.png'
-import { breakpoints } from '../../utils/theme'
+
+const shrink = keyframes`
+  from {
+    transform: scale(1) rotate(360deg);
+  }
+  to {
+    transform: scale(0) rotate(0deg);
+  }
+`
 
 const Wrapper = styled.div`
   .fili {
@@ -18,9 +27,13 @@ const Wrapper = styled.div`
     background: url(${filiSprites}) 0 0 no-repeat;
     width: 76px;
     height: 104px;
+    
+    &.shrink {
+      animation: ${shrink} 2s ease-out 0s 1 forwards;
+    }
   }
   
-  @media (max-width: ${breakpoints[0]}) {
+  @media (max-width: 768px) {
     .fili {
       display: none;
     }
@@ -91,6 +104,7 @@ class Fili extends React.PureComponent {
     if (!this.state.dragging && distance > DRAG_THRESHOLD) {
       this.setState({dragging: true})
       this.filiStruggle()
+      this.props.isDragging(true)
     }
 
     if (this.state.dragging) {
@@ -118,26 +132,34 @@ class Fili extends React.PureComponent {
     }
   }
 
-  onMouseUp = () => {
+  onMouseUp = (event) => {
     this.removeEvents()
-    if (this.state.dragging) {
-      this.setState({
-        dragging: false,
-        cursor: `url(${cursorGrab}), auto`
-      })
-    }
 
-    // Calculate if fili was thrown (and how far)
-    if (this.state.lastMoves.length) {
-      const firstMove = this.state.lastMoves[0]
-      const lastMove = this.state.lastMoves[this.state.lastMoves.length - 1]
-      const bounceX = (lastMove[0] - firstMove[0]) * .6
-      const bounceY = Math.abs((lastMove[1] - firstMove[1]) * .4)
+    if (this.calcInDevice(event.clientX, event.clientY)) {
 
-      if (Math.abs(bounceX) > 150 || Math.abs(bounceY) > 50) {
-        this.filiBounce(bounceX, bounceY, 800)
-      } else {
-        this.fili.showSprite(5)
+      this.filiShrink()
+
+    } else {
+      if (this.state.dragging) {
+        this.props.isDragging(false)
+        this.setState({
+          dragging: false,
+          cursor: `url(${cursorGrab}), auto`
+        })
+      }
+
+      // Calculate if fili was thrown (and how far)
+      if (this.state.lastMoves.length) {
+        const firstMove = this.state.lastMoves[0]
+        const lastMove = this.state.lastMoves[this.state.lastMoves.length - 1]
+        const bounceX = (lastMove[0] - firstMove[0]) * .6
+        const bounceY = Math.abs((lastMove[1] - firstMove[1]) * .4)
+
+        if (Math.abs(bounceX) > 150 || Math.abs(bounceY) > 50) {
+          this.filiBounce(bounceX, bounceY, 800)
+        } else {
+          this.fili.showSprite(5)
+        }
       }
     }
   }
@@ -154,6 +176,28 @@ class Fili extends React.PureComponent {
     document.removeEventListener('mouseup', this.onMouseUp)
     document.body.style.userSelect = 'auto'
     document.body.style.overflowX = 'auto'
+  }
+
+  calcInDevice = (x, y) => {
+    let inDevice = false
+    const devices = document.getElementsByClassName('device')
+    for (let device of devices) {
+      const pos = {
+        top: device.offsetTop + this.state.parentOffsetY,
+        left: device.offsetLeft + this.state.parentOffsetX,
+        width: device.offsetWidth,
+        height: device.offsetHeight,
+      }
+
+      if (
+        x > pos.left && x < pos.left + pos.width &&
+        y > pos.top && y < pos.top + pos.height
+      ) {
+        inDevice = true
+      }
+    }
+
+    return inDevice
   }
 
   filiInit = () => {
@@ -260,6 +304,13 @@ class Fili extends React.PureComponent {
     })
   }
 
+  filiShrink = () => {
+    this.$el.addClass('shrink')
+    setTimeout(() => {
+      this.props.isDragging(false)
+    }, 2000)
+  }
+
   render () {
     return <Wrapper>
       <div
@@ -277,6 +328,10 @@ class Fili extends React.PureComponent {
       />
     </Wrapper>
   }
+}
+
+Fili.propTypes = {
+  isDragging: PropTypes.func
 }
 
 export default Fili

@@ -1,19 +1,21 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Box } from 'grid-styled'
+import PropTypes from 'prop-types'
 
 import { breakpoints } from '../../utils/theme'
 import devices from '../../assets/images/devices/devices.svg'
 import phoneP from '../../assets/images/devices/phone-p.jpg'
 import ipadP from '../../assets/images/devices/ipad-p.jpg'
 import ipadL from '../../assets/images/devices/ipad-l.jpg'
+import tvStatic from '../../assets/images/devices/static.jpg'
 import Video from '../Video'
 import PrintHide from '../PrintHide'
 import PrintShow from '../PrintShow'
 import PrintNoBreak from '../PrintNoBreak'
 import Fili from '../Fili'
 
-const Bio = styled(Box)`
+const Wrapper = styled(Box)`
   text-align: center;
   
   @media print {
@@ -51,14 +53,19 @@ const scrollUpDown = keyframes`
   90%, 100% {
     background-position: 0 100%;
   }
-`;
+`
 
 const stepPages = keyframes`
   100% {
     background-position: 150% 0;
   }
-`;
+`
 
+const stepStatic = keyframes`
+  100% {
+    background-position: 0 100%;
+  }
+`
 
 const Devices = styled(Box)`
   position: relative;
@@ -66,6 +73,15 @@ const Devices = styled(Box)`
   padding-top: 45%;
   background: url(${devices}) 0 0 no-repeat;
   background-size: 100% 100%;
+  
+  &.static .device {
+    background: url(${tvStatic}) 0 0 no-repeat !important;
+    animation: ${stepStatic} .6s steps(5) infinite;
+  }
+  
+  &.static video {
+    display: none;
+  }
 `
 
 const Overlay = styled(Box)`
@@ -104,6 +120,7 @@ const Laptop = styled.div`
   top: 54%;
   left: 63%;
   width: 27%;
+  height: 41%;
 `
 
 const PhoneP = styled.div`
@@ -159,33 +176,56 @@ const PhoneL = styled.div`
   }
 `
 
-export default ({ name, description, headline }) => (
-  <Bio>
-    <PrintHide>
-      <Devices px={20} mt={40} mb={60} id='devices'>
-        <Fili />
-        <Desktop>
-          <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
-        </Desktop>
-        <Laptop>
-          <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' disableOnMobile />
-        </Laptop>
-        <PhoneP />
-        <IpadP />
-        <IpadL />
-        <PhoneL>
-          <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
-        </PhoneL>
-      </Devices>
-      <h1>{name}</h1>
-      <Blockquote>{headline}</Blockquote>
-    </PrintHide>
+class Bio extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.state = {
+      tvStatic: false
+    }
+  }
 
-    <PrintShow>
-      <PrintNoBreak>
-        <h4>Summary</h4>
-        <Blockquote dangerouslySetInnerHTML={{__html: description}} />
-      </PrintNoBreak>
-    </PrintShow>
-  </Bio>
-)
+  isDragging = (dragging) => {
+    this.setState({tvStatic: dragging})
+  }
+
+  render () {
+    return (
+      <Wrapper>
+        <PrintHide>
+          <Devices px={20} mt={40} mb={60} id='devices' className={this.state.tvStatic ? 'static' : ''}>
+            <Fili className='fili' isDragging={this.isDragging} />
+            <Desktop className='device'>
+              <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
+            </Desktop>
+            <Laptop className='device'>
+              <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' disableOnMobile />
+            </Laptop>
+            <PhoneP className='device' />
+            <IpadP className='device' />
+            <IpadL className='device' />
+            <PhoneL className='device'>
+              <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
+            </PhoneL>
+          </Devices>
+          <h1>{this.props.name}</h1>
+          <Blockquote>{this.props.headline}</Blockquote>
+        </PrintHide>
+
+        <PrintShow>
+          <PrintNoBreak>
+            <h4>Summary</h4>
+            <Blockquote dangerouslySetInnerHTML={{__html: this.props.description}} />
+          </PrintNoBreak>
+        </PrintShow>
+      </Wrapper>
+    )
+  }
+}
+
+Bio.propTypes = {
+  name: PropTypes.string,
+  description: PropTypes.string,
+  headline: PropTypes.string,
+}
+
+export default Bio
