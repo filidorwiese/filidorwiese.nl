@@ -71,8 +71,6 @@ const Devices = styled(Box)`
   position: relative;
   width: 100%;
   padding-top: 45%;
-  background: url(${devices}) 0 0 no-repeat;
-  background-size: 100% 100%;
   
   &.static .device {
     background: url(${tvStatic}) 0 0 no-repeat !important;
@@ -93,7 +91,6 @@ const Overlay = styled(Box)`
   background-size: 100% 100%;
   width: 100%;
   padding-top: 45%;
-  opacity: 0;
 `
 
 const Desktop = styled.div`
@@ -193,7 +190,6 @@ class Bio extends React.PureComponent {
       <Wrapper>
         <PrintHide>
           <Devices px={20} mt={40} mb={60} id='devices' className={this.state.tvStatic ? 'static' : ''}>
-            <Fili className='fili' isDragging={this.isDragging} />
             <Desktop className='device'>
               <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
             </Desktop>
@@ -206,6 +202,8 @@ class Bio extends React.PureComponent {
             <PhoneL className='device'>
               <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
             </PhoneL>
+            <Fili className='fili' isDragging={this.isDragging} />
+            <Overlay />
           </Devices>
           <h1>{this.props.name}</h1>
           <Blockquote>{this.props.headline}</Blockquote>
