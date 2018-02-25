@@ -3,5 +3,9 @@
  *
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
+import React from 'react'
 
- // You can delete this file if you're not using it
+exports.onRenderBody = ({ setHeadComponents }) =>
+  setHeadComponents([
+    <link key="icon" rel="icon" href="favicon.gif" />
+  ])
