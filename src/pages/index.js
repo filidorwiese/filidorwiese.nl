@@ -34,7 +34,13 @@ export default ({ data }) => {
       'description': siteMetadata.bio.headline,
       'name': siteMetadata.bio.name,
       'telephone': siteMetadata.bio.phone,
-      'url': siteMetadata.bio.url
+      'url': siteMetadata.bio.url,
+      'sameAs': [
+        'https://galaxy.fili.nl/',
+        'https://twitter.com/filidorwiese/',
+        'https://www.linkedin.com/in/filidorwiese/',
+        'https://github.com/filidorwiese/'
+      ],
     })
   }
   const projects = data.allMarkdownRemark.edges
