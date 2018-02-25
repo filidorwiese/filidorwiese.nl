@@ -181,7 +181,7 @@ class Fili extends React.PureComponent {
 
   calcInDevice = (x, y) => {
     let inDevice = false
-    const devices = document.getElementsByClassName('device')
+    const devices = document.getElementsByClassName('static')
     for (let device of devices) {
       const pos = {
         top: device.offsetTop + this.state.parentOffsetY,
@@ -307,9 +307,16 @@ class Fili extends React.PureComponent {
 
   filiShrink = () => {
     this.$el.addClass('shrink')
+
     setTimeout(() => {
       this.props.isDragging(false)
       this.el.remove()
+      jQuery('#page-static-overlay').show()
+
+      // Redirect to galaxy.fili.nl
+      setTimeout(() => {
+        window.location = 'https://galaxy.fili.nl'
+      }, 350)
     }, 2000)
   }
 

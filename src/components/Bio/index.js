@@ -15,12 +15,55 @@ import PrintShow from '../PrintShow'
 import PrintNoBreak from '../PrintNoBreak'
 import Fili from '../Fili'
 
+const scrollUpDown = keyframes`
+  0%, 10% {
+    background-position: 0 0;
+  }
+
+  90%, 100% {
+    background-position: 0 100%;
+  }
+`
+
+const stepPages = keyframes`
+  100% {
+    background-position: 150% 0;
+  }
+`
+
+const stepStatic = keyframes`
+  100% {
+    background-position: 0 100%;
+  }
+`
+
 const Wrapper = styled(Box)`
   text-align: center;
   
   @media print {
     text-align: left;
   }
+  
+  #page-static-overlay,
+  .static {
+    background: url(${tvStatic}) 0 0 no-repeat;
+    animation: ${stepStatic} .6s steps(5) infinite;
+    
+    & video {
+      display: none;
+    }
+  }
+`
+
+const PageOverlay = styled.div`
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover !important;
 `
 
 const Blockquote = styled.blockquote`
@@ -45,44 +88,13 @@ const Blockquote = styled.blockquote`
   }
 `
 
-const scrollUpDown = keyframes`
-  0%, 10% {
-    background-position: 0 0;
-  }
-
-  90%, 100% {
-    background-position: 0 100%;
-  }
-`
-
-const stepPages = keyframes`
-  100% {
-    background-position: 150% 0;
-  }
-`
-
-const stepStatic = keyframes`
-  100% {
-    background-position: 0 100%;
-  }
-`
-
 const Devices = styled(Box)`
   position: relative;
   width: 100%;
   padding-top: 45%;
-  
-  &.static .device {
-    background: url(${tvStatic}) 0 0 no-repeat !important;
-    animation: ${stepStatic} .6s steps(5) infinite;
-  }
-  
-  &.static video {
-    display: none;
-  }
 `
 
-const Overlay = styled(Box)`
+const DevicesOverlay = styled(Box)`
   position: absolute;
   z-index: 20;
   top: 0;
@@ -186,24 +198,26 @@ class Bio extends React.PureComponent {
   }
 
   render () {
+    const tvStaticClass = this.state.tvStatic ? 'static' : ''
     return (
       <Wrapper>
         <PrintHide>
-          <Devices px={20} mt={40} mb={60} id='devices' className={this.state.tvStatic ? 'static' : ''}>
-            <Desktop className='device'>
+          <PageOverlay id='page-static-overlay' />
+          <Devices px={20} mt={40} mb={60} id='devices'>
+            <Desktop className={tvStaticClass}>
               <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
             </Desktop>
-            <Laptop className='device'>
+            <Laptop className={tvStaticClass}>
               <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' disableOnMobile />
             </Laptop>
-            <PhoneP className='device' />
-            <IpadP className='device' />
-            <IpadL className='device' />
-            <PhoneL className='device'>
+            <PhoneP className={tvStaticClass} />
+            <IpadP className={tvStaticClass} />
+            <IpadL className={tvStaticClass} />
+            <PhoneL className={tvStaticClass}>
               <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
             </PhoneL>
             <Fili className='fili' isDragging={this.isDragging} />
-            <Overlay />
+            <DevicesOverlay />
           </Devices>
           <h1>{this.props.name}</h1>
           <Blockquote>{this.props.headline}</Blockquote>
