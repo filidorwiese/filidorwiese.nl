@@ -35,7 +35,7 @@ const Header = ({ bio, social }) => (
             {bio.phone}
           </div>
         </Box>
-        <BioWrapper flex="0 1 auto" order={[40, 40, 20]} px={[0, 0, 40]} mb={[80, 80, 100]} mt={[50, 50, 0]}>
+        <BioWrapper flex="0 1 auto" order={[40, 40, 20]} px={[0, 0, 40]} mb={[60, 60, 60]} mt={[50, 50, 0]}>
           <Bio name={bio.name} headline={bio.headline} />
         </BioWrapper>
         <Box flex="0 0 auto" order={30}>

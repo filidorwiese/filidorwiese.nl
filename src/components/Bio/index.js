@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { Box } from 'grid-styled'
 import PropTypes from 'prop-types'
 
-import { breakpoints } from '../../utils/theme'
+import { breakpoints, colors } from '../../utils/theme'
 import devices from '../../assets/images/devices/devices.svg'
 import phoneP from '../../assets/images/devices/phone-p.jpg'
 import ipadP from '../../assets/images/devices/ipad-p.jpg'
@@ -185,6 +185,20 @@ const PhoneL = styled.div`
   }
 `
 
+const ArrowDown = styled.div`
+  &::before {
+    position: relative;
+    content: "";
+    display: inline-block;
+    top: 10px;
+    width: 0.5em;
+    height: 0.5em;
+    border-right: 0.15em solid ${colors.darkBlue};
+    border-top: 0.15em solid ${colors.darkBlue};
+    transform: rotate(135deg);
+  }
+`
+
 class Bio extends React.PureComponent {
   constructor (props) {
     super(props)
@@ -221,6 +235,7 @@ class Bio extends React.PureComponent {
           </Devices>
           <h1>{this.props.name}</h1>
           <Blockquote>{this.props.headline}</Blockquote>
+          <ArrowDown />
         </PrintHide>
 
         <PrintShow>
