@@ -35,7 +35,7 @@ const Blockquote = styled.blockquote`
     text-align: left;
   }
   
-  @media (min-width: ${breakpoints[0]}) {
+  @media (min-width: ${breakpoints[1]}) {
     max-width: 700px;
     margin: 0 auto;
   }

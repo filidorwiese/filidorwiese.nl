@@ -5,4 +5,4 @@ export const colors = {
   extreLightBlue: '#ccdde2',
 }
 
-export const breakpoints = ['60em', '64em']
+export const breakpoints = ['48em', '60em', '64em']

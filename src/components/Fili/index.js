@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import filiSprites from '../../assets/images/fili-draggable.png'
 import cursorGrab from '../../assets/images/grab.png'
 import cursorGrabbing from '../../assets/images/grabbing.png'
+import { breakpoints } from '../../utils/theme'
 
 const shrink = keyframes`
   from {
@@ -33,7 +34,7 @@ const Wrapper = styled.div`
     }
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints[0]}) {
     .fili {
       display: none;
     }

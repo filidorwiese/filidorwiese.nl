@@ -43,7 +43,7 @@ const ProjectDescription = styled(Box)`
 const ProjectVideo = styled(Box)`
   min-width: 30%;
   
-  @media (min-width: ${breakpoints[0]}) {
+  @media (min-width: ${breakpoints[1]}) {
     max-width: 370px;
   }
   @media print {
@@ -60,10 +60,11 @@ const Ul = styled.ul`
     transform: translateY(5px);
     width: 20px;
     margin-right: 14px;
+    margin-left: -35px;
   }
   
   li {
-    margin-left: 0;
+    margin-left: 35px;
   }
 `
 
@@ -79,9 +80,9 @@ class Project extends React.PureComponent {
     return (
       <ProjectWrapper className={printonly ? 'printonly' : ''}>
         <PrintNoBreak>
-          <ProjectFlex flexWrap={['wrap', 'nowrap']} py={60}>
-            <ProjectLine flex="0 0 auto" order={10} width={[40, 60]} />
-            <ProjectDescription flex="1 1 auto" pl={[50, 40]} pr={[0, 60]} order={20}>
+          <ProjectFlex flexWrap={['wrap', 'nowrap', 'nowrap']} py={60}>
+            <ProjectLine flex="0 0 auto" order={10} width={[40, 40, 60]} />
+            <ProjectDescription flex="1 1 auto" pl={[50, 40, 40]} pr={[0, 60, 60]} order={20}>
               <h2>{title}</h2>
               <p dangerouslySetInnerHTML={{ __html: html}} />
               <Ul>
@@ -94,7 +95,7 @@ class Project extends React.PureComponent {
                 </li>}
               </Ul>
             </ProjectDescription>
-            <ProjectVideo flex="1 1 auto" order={[1, 30]} mb={[20, 0]}>
+            <ProjectVideo flex="1 1 100%" order={[1, 30, 30]} mb={[20, 20, 0]}>
               <a href={url} target='_blank'>
                 <Video video={video} poster={poster} browser disableOnMobile />
               </a>

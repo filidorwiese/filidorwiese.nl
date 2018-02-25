@@ -41,13 +41,13 @@ export default ({ children, data }) => {
           </Container>
         </PageFlex>
         <DoormatFlex>
-          <Container px={20} py={[40, 80]} mx="auto">
+          <Container px={20} py={[40, 40, 80]} mx="auto">
             <Doormat bio={siteMetadata.bio} />
           </Container>
         </DoormatFlex>
         <PrintHide>
           <FooterFlex>
-            <Container px={20} py={[40, 100]} mx="auto">
+            <Container px={20} py={[40, 40, 100]} mx="auto">
               <Footer bio={siteMetadata.bio} />
             </Container>
           </FooterFlex>
