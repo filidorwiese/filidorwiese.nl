@@ -3,9 +3,26 @@ import Helmet from 'react-helmet'
 import Project from '../components/Project'
 import PrintShow from '../components/PrintShow'
 
+
 export default ({ data }) => {
   const siteMetadata = data.site.siteMetadata
   const pageTitle = `${siteMetadata.bio.name}, ${siteMetadata.bio.title} - Showcase`
+  const twitterCard = [
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:creator', content: '@filidor.wiese' },
+    { name: 'twitter:title', content: pageTitle },
+    { name: 'twitter:description', content: siteMetadata.bio.headline },
+    { name: 'twitter:image', content: `${siteMetadata.bio.url}/opengraph.png` },
+  ]
+  const opengraphCard = [
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: siteMetadata.bio.url },
+    { property: 'og:site_name', content: siteMetadata.bio.name },
+    { property: 'og:description', content: siteMetadata.bio.headline },
+    { property: 'og:image', content: `${siteMetadata.bio.url}/opengraph.png` },
+    { property: 'og:locale', content: 'en_US' },
+  ]
   const schemaOrg = {
     type: 'application/ld+json',
     innerHTML: JSON.stringify({
@@ -17,7 +34,7 @@ export default ({ data }) => {
       'description': siteMetadata.bio.headline,
       'name': siteMetadata.bio.name,
       'telephone': siteMetadata.bio.phone,
-      'url': siteMetadata.url
+      'url': siteMetadata.bio.url
     })
   }
   const projects = data.allMarkdownRemark.edges
@@ -25,7 +42,11 @@ export default ({ data }) => {
     <main>
       <Helmet
         title={pageTitle}
-        meta={[{ name: 'description', content: siteMetadata.bio.headline }]}
+        meta={[
+          { name: 'description', content: siteMetadata.bio.headline },
+          ...twitterCard,
+          ...opengraphCard
+          ]}
         script={[schemaOrg]}
       />
       <div>
@@ -48,6 +69,7 @@ export const query = graphql`
           phone
           title
           headline
+          url
         }
       }
     }
