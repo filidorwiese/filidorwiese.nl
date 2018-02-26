@@ -22,7 +22,7 @@ const Photo = styled.img`
   max-width: 25%;
 `
 
-const Header = ({ bio, social }) => (
+const Header = ({ bio, social, tags }) => (
   <header>
     <PrintHide>
       <Flex justifyContent="space-between" flexWrap={['wrap', 'wrap', 'nowrap']}>
@@ -75,7 +75,7 @@ const Header = ({ bio, social }) => (
           </tr>
         </tbody>
       </table>
-      <Bio name={bio.name} description={bio.description} />
+      <Bio name={bio.name} description={bio.description} tags={tags} />
     </PrintShow>
   </header>
 )

@@ -82,8 +82,11 @@ const Blockquote = styled.blockquote`
     max-width: 700px;
     margin: 0 auto;
   }
-  
+`
+
+const Tags = styled.p`
   @media print {
+    margin-top: 15px;
     page-break-after: always;
   }
 `
@@ -212,6 +215,13 @@ class Bio extends React.PureComponent {
   }
 
   render () {
+    const {
+      name,
+      headline,
+      description,
+      tags
+    } = this.props
+
     const tvStaticClass = this.state.tvStatic ? 'static' : ''
     return (
       <Wrapper>
@@ -233,15 +243,16 @@ class Bio extends React.PureComponent {
             <Fili className='fili' isDragging={this.isDragging} />
             <DevicesOverlay />
           </Devices>
-          <h1>{this.props.name}</h1>
-          <Blockquote>{this.props.headline}</Blockquote>
+          <h1>{name}</h1>
+          <Blockquote>{headline}</Blockquote>
           <ArrowDown />
         </PrintHide>
 
         <PrintShow>
           <PrintNoBreak>
             <h4>Summary</h4>
-            <Blockquote dangerouslySetInnerHTML={{__html: this.props.description}} />
+            <Blockquote dangerouslySetInnerHTML={{__html: description}} />
+            { tags && <Tags>Expertise: {Array.from(new Set(tags)).join(', ')}</Tags> }
           </PrintNoBreak>
         </PrintShow>
       </Wrapper>
@@ -253,6 +264,7 @@ Bio.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   headline: PropTypes.string,
+  tags: PropTypes.array
 }
 
 export default Bio

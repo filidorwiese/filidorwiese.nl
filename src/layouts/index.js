@@ -14,6 +14,10 @@ const Container = styled(Box)`
 
 const PageFlex = styled(Flex)`
   background-color: ${colors.brokenWhite};
+  
+  @media print {
+    page-break-after: always;
+  }
 `
 
 const DoormatFlex = styled(Flex)`
@@ -27,6 +31,13 @@ const FooterFlex = styled(Flex)`
 export default ({ children, data }) => {
   const siteMetadata = data.site.siteMetadata
 
+  // Collect tags from projects
+  let tags = []
+  data.allMarkdownRemark.edges.map((p) => {
+    const moreTags = p.node.frontmatter.tags.split(', ')
+    if (moreTags) tags = [...tags, ...p.node.frontmatter.tags.split(', ')]
+  })
+
   return (
     <ThemeProvider
       theme={{
@@ -36,7 +47,7 @@ export default ({ children, data }) => {
       <div>
         <PageFlex>
           <Container px={20} py={40} mx="auto">
-            <Header bio={siteMetadata.bio} social={siteMetadata.social} />
+            <Header bio={siteMetadata.bio} social={siteMetadata.social} tags={tags} />
             {children()}
           </Container>
         </PageFlex>
@@ -88,6 +99,18 @@ export const query = graphql`
           github
           twitter
           linkedin
+        }
+      }
+    }
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___sortdate], order: DESC }
+      filter: { fileAbsolutePath: { regex: "/(content)/.*.md$/" } }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            tags
+          }
         }
       }
     }

@@ -22,7 +22,8 @@ const ProjectWrapper = styled.article`
 
 const ProjectFlex = styled(Flex)`
   @media print {
-    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 `
 
@@ -31,12 +32,20 @@ const ProjectLine = styled(Box)`
 `
 
 const ProjectDescription = styled(Box)`
-  a {
-    color: ${colors.lightBlue}
+  @media screen {
+    a {
+      color: ${colors.lightBlue};
+    }
+    a:hover {
+      color: ${colors.darkBlue};
+    }
   }
-   
-  a:hover {
-    color: ${colors.darkBlue}
+  
+  @media print {
+    a {
+      color: ${colors.darkBlue};
+      text-decoration: none;
+    }
   }
 `
 
@@ -80,7 +89,7 @@ class Project extends React.PureComponent {
     return (
       <ProjectWrapper className={printonly ? 'printonly' : ''}>
         <PrintNoBreak>
-          <ProjectFlex flexWrap={['wrap', 'nowrap', 'nowrap']} py={60}>
+          <ProjectFlex flexWrap={['wrap', 'nowrap', 'nowrap']} my={60}>
             <ProjectLine flex="0 0 auto" order={10} width={[40, 40, 60]} />
             <ProjectDescription flex="1 1 auto" pl={[50, 40, 40]} pr={[0, 60, 60]} order={20}>
               <h2>{title}</h2>
