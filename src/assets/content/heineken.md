@@ -3,7 +3,7 @@ title: Heineken
 role: Front-end developer
 sortdate: "2013-02-01"
 date: "December 2012 - February 2013"
-tags: Javascript, CSS, HTML, Mustache, Responsive, IE7
+tags: Javascript, CSS, HTML, Mustache, Responsive, Cross-browser
 video: "media/heineken.mp4"
 poster: "media/heineken.jpg"
 printonly: false

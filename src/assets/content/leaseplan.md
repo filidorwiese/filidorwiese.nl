@@ -4,7 +4,7 @@ role: Tech Lead, Senior Front-end developer
 url: https://www.leaseplan.com/nl-be/
 sortdate: "2018-03-01"
 date: "February 2017 - February 2018"
-tags: ES6, React, Redux, Saga’s, Flow, Node, CI/CD, AWS, Docker, Testing, Git, Scrum
+tags: ES6, React, Redux, Saga’s, Flow, Immutable, SSR, Node, Cypress, Jest, Enzyme, Travis, AWS, Docker, Git, Scrum
 video: "media/leaseplan.mp4"
 poster: "media/leaseplan.jpg"
 printonly: false

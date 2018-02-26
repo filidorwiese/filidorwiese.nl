@@ -4,7 +4,7 @@ role: Senior Front-end developer, Lead Front-end Chapter
 url: https://www.tnt.com/express/nl_nl/site/home.html
 sortdate: "2016-07-01"
 date: "July 2014 - July 2016"
-tags: Angularjs, Rxjs, ES6, Restful, Ionic, Scrum, Git, Testing
+tags: Angularjs, Rxjs, ES6, Restful, Ionic, Scrum, Git, Selenium, Protractor
 video: "media/tnt.mp4"
 poster: "media/tnt.jpg"
 printonly: false
