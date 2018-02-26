@@ -9,4 +9,4 @@ video: "media/gelredome.mp4"
 poster: "media/gelredome.jpg"
 printonly: false
 ---
-Gelredome, one of the largest stadiums and concert halls in the Netherlands was a relatively straight-forward, but nevertheless fun assignment to develop the front-end of. Some subtle animation effects gave the design a finishing touch. Agency: Bureau BlauwGeel. 
+Gelredome, one of the largest stadiums and concert halls in the Netherlands was a relatively straight-forward, but nevertheless fun assignment to develop the front-end of. Some subtle animation effects gave the design a finishing touch. Agency: <a href="http://www.bureaublauwgeel.nl" target="_blank">Bureau BlauwGeel</a> 
