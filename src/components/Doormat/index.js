@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactGA from 'react-ga'
 import styled from 'styled-components'
 import { Flex, Box } from 'grid-styled'
 import Video from '../Video'
@@ -23,6 +24,14 @@ const BrowserMini = styled(Box)`
 `
 
 const Doormat = ({ bio }) => {
+
+  const onClick = (title) => {
+    ReactGA.event({
+      category: 'User',
+      action: `Clicked ${title}`
+    })
+  }
+
   return (
     <Wrapper>
       <PrintNoBreak>
@@ -34,17 +43,17 @@ const Doormat = ({ bio }) => {
       <PrintHide>
         <Flex mt={80}>
           <BrowserMini flex="1 1 auto">
-            <a href='https://worldwide.vote/hillary-vs-trump/' target='_blank'>
+            <a href='https://worldwide.vote/hillary-vs-trump/' target='_blank' onClick={() => onClick('Hillary vs Trump')}>
               <Video video='media/hillaryvstrump.mp4' poster='media/hillaryvstrump.jpg' browser disableOnMobile />
             </a>
           </BrowserMini>
           <BrowserMini flex="1 1 auto">
-            <a href='https://galaxy.fili.nl' target='_blank'>
+            <a href='https://galaxy.fili.nl' target='_blank' onClick={() => onClick('Galaxy.fili.nl')}>
               <Video video='media/galaxy.mp4' poster='media/galaxy.jpg' browser disableOnMobile />
             </a>
           </BrowserMini>
           <BrowserMini flex="1 1 auto">
-            <a href='http://multeor.com' target='_blank'>
+            <a href='http://multeor.com' target='_blank' onClick={() => onClick('Multeor')}>
               <Video video='media/multeor.mp4' poster='media/multeor.jpg' browser disableOnMobile />
             </a>
           </BrowserMini>

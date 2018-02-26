@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 import GithubIcon from '../Icons/github'
@@ -27,11 +28,18 @@ const SocialLink = styled.a`
 `
 
 class SocialLinks extends React.PureComponent {
+  onClick = (title) => {
+    ReactGA.event({
+      category: 'User',
+      action: `Clicked ${title}`
+    })
+  }
+
   render () {
     return <SocialIcons>
       {Object.entries(this.props.links).map(([key, url]) => (
         <SocialIcon key={key}>
-          <SocialLink href={url} target="_blank" className={`social-icon--${key}`}>
+          <SocialLink href={url} target="_blank" className={`social-icon--${key}`} onClick={() => this.onClick(key)}>
             { key === 'github' && <GithubIcon /> }
             { key === 'twitter' && <TwitterIcon /> }
             { key === 'linkedin' && <LinkedinIcon /> }

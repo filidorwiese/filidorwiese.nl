@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactGA from 'react-ga'
 import PropTypes from 'prop-types'
 import { Flex, Box } from 'grid-styled'
 import styled from 'styled-components'
@@ -80,6 +81,13 @@ const Ul = styled.ul`
 const stripDomain = (string) => string.match(/https?:\/\/(?:www\.)?([a-z0-9\-.]*)(?:\/|$)/)[1]
 
 class Project extends React.PureComponent {
+  onClick = (title) => {
+    ReactGA.event({
+      category: 'User',
+      action: `Clicked ${title}`
+    })
+  }
+
   render() {
     const {
       html,
@@ -100,12 +108,12 @@ class Project extends React.PureComponent {
                 <li><IconTech />{tags}</li>
                 {url && <li>
                   <IconLink />
-                  <Anchor href={url} target='_blank'>{stripDomain(url)}</Anchor>
+                  <Anchor href={url} target='_blank' onClick={() => this.onClick(title)}>{stripDomain(url)}</Anchor>
                 </li>}
               </Ul>
             </ProjectDescription>
             <ProjectVideo flex="1 1 100%" order={[1, 30, 30]} mb={[20, 20, 0]}>
-              <a href={url} target='_blank'>
+              <a href={url} target='_blank' onClick={() => this.onClick(title)}>
                 <Video video={video} poster={poster} browser disableOnMobile />
               </a>
             </ProjectVideo>

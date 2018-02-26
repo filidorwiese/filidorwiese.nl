@@ -1,4 +1,5 @@
 import React from 'react'
+import * as ReactGA from 'react-ga'
 import styled, { keyframes } from 'styled-components'
 import 'jquery-spriteanimator'
 import 'jquery.easing'
@@ -300,6 +301,10 @@ class Fili extends React.PureComponent {
         this.setState({
           bouncing: false
         })
+        ReactGA.event({
+          category: 'User',
+          action: `Thrown fili`
+        })
         setTimeout(this.filiStand, 200)
       }
     })
@@ -316,6 +321,11 @@ class Fili extends React.PureComponent {
       // Redirect to galaxy.fili.nl
       setTimeout(() => {
         window.location = 'https://galaxy.fili.nl'
+
+        ReactGA.event({
+          category: 'User',
+          action: `Lost fili`
+        })
       }, 350)
     }, 2000)
   }

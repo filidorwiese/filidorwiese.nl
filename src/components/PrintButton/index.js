@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import { colors } from '../../utils/theme'
 
@@ -17,6 +18,11 @@ const Button = styled.button`
 class PrintButton extends React.PureComponent {
   onClick = () => {
     window.print()
+
+    ReactGA.event({
+      category: 'User',
+      action: 'Clicked Print'
+    })
   }
 
   render() {
