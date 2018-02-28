@@ -105,7 +105,7 @@ const DevicesOverlay = styled(Box)`
   background: url(${devices}) 0 0 no-repeat;
   background-size: 100% 100%;
   width: 100%;
-  padding-top: 45%;
+  height: 100%;
 `
 
 const Desktop = styled.div`
@@ -130,7 +130,7 @@ const Laptop = styled.div`
   position: absolute;
   z-index: 10;
   top: 54%;
-  left: 63%;
+  left: 62.9%;
   width: 27%;
   height: 41%;
 `
@@ -151,8 +151,8 @@ const IpadP = styled.div`
   position: absolute;
   z-index: 10;
   top: 53.7%;
-  left: 21.9%;
-  width: 13.3%;
+  left: 21.8%;
+  width: 13.4%;
   height: 39.6%;
   background: url(${ipadP}) 0 0 no-repeat;
   background-size: cover;
