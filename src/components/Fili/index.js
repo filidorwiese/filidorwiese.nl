@@ -54,6 +54,7 @@ const LEFT_BUTTON = 0
 const DRAG_THRESHOLD = 3
 const MODES = {
   STANDING: 'STANDING',
+  LOOKING: 'LOOKING',
   TAKINGCOVER: 'TAKINGCOVER',
   DRAGGING: 'DRAGGING',
   BOUNCING: 'BOUNCING',
@@ -66,7 +67,8 @@ class Fili extends React.PureComponent {
 
     this.state = {
       mouseDown: false,
-      mode: MODES.STANDING
+      mode: MODES.STANDING,
+      lastMoves: []
     }
   }
 
@@ -91,7 +93,7 @@ class Fili extends React.PureComponent {
   }
 
   onMouseEnter = () => {
-    if (this.state.mode === MODES.STANDING) {
+    if (this.state.mode === MODES.STANDING || this.state.mode === MODES.LOOKING) {
       this.filiTakeCover()
       this.setState({
         cursor: 'grab'
@@ -116,7 +118,6 @@ class Fili extends React.PureComponent {
         originY: event.pageY,
         elementX: pageOffset.left,
         elementY: pageOffset.top,
-        lastMoves: [],
         cursor: 'grabbing'
       })
 
@@ -127,20 +128,32 @@ class Fili extends React.PureComponent {
   }
 
   onMouseMove = (event) => {
+    // Collect last 10 moves for velocity effects
+    const lastMoves = this.state.lastMoves
+    lastMoves.push([ event.pageX, event.pageY ])
+    if (lastMoves.length > 10) lastMoves.shift()
+
     if (this.state.mouseDown || this.state.mode === MODES.DRAGGING) {
       this.onMouseMoveDragging(event)
-    } else if (this.state.mode === MODES.STANDING) {
+    } else if (this.state.mode === MODES.STANDING || this.state.mode === MODES.LOOKING) {
       this.onMouseMoveLooking(event)
     }
   }
 
   onMouseMoveLooking = (event) => {
     const { x, y } = this.getAnchorPosition()
-    let angle = Math.atan2(event.pageY - y, event.pageX - x) * 180 / Math.PI
-    angle = Math.floor((angle + 360) % 360)
+    const distance = this.getDistance(x, y, event.pageX, event.pageY)
 
-    // if (Math.random() < .05)
-    this.filiLook(angle)
+    if (distance < 300){
+      let angle = Math.atan2(event.pageY - y, event.pageX - x) * 180 / Math.PI
+      angle = Math.floor((angle + 360) % 360)
+      this.filiLook(angle)
+    } else {
+      // Return to standing when mouse is too far away
+      if (this.state.mode === MODES.LOOKING) {
+        setTimeout(this.filiStand, 750)
+      }
+    }
   }
 
   onMouseMoveDragging = (event) => {
@@ -148,7 +161,7 @@ class Fili extends React.PureComponent {
     const deltaY = event.pageY - this.state.originY
     const distance = Math.abs(deltaX) + Math.abs(deltaY)
 
-    if (this.state.mode !== MODES.DRAGGING && distance > DRAG_THRESHOLD) {
+    if (this.state.mode === MODES.TAKINGCOVER && distance > DRAG_THRESHOLD) {
       this.props.isDraggingFn(true)
       this.filiStruggle()
     }
@@ -165,15 +178,9 @@ class Fili extends React.PureComponent {
       if (top < window.scrollY) top = window.scrollY
       if (top > window.scrollY + pageHeight - this.state.height) top = window.scrollY + pageHeight - this.state.height
 
-      // Collect last moves for bounce effect
-      const lastMoves = this.state.lastMoves
-      lastMoves.push([deltaX, deltaY])
-      if (lastMoves.length > 10) lastMoves.shift()
-
       this.setState({
         left,
-        top,
-        lastMoves
+        top
       })
     }
   }
@@ -196,24 +203,44 @@ class Fili extends React.PureComponent {
         })
       }
 
-      // Calculate if fili was thrown (and how far)
-      if (this.state.lastMoves.length) {
-        const firstMove = this.state.lastMoves[0]
-        const lastMove = this.state.lastMoves[this.state.lastMoves.length - 1]
-        const bounceX = (lastMove[0] - firstMove[0]) * .6
-        const bounceY = Math.abs((lastMove[1] - firstMove[1]) * .4)
+      // Was fili thrown? If so, how far?
+      const { velocity, velocityX, velocityY } = this.getVelocity()
+      if (velocity > 50) {
+        const bounceX = Math.floor(velocityX * .6)
+        const bounceY = Math.floor(Math.abs(velocityY * .4))
 
-        if (Math.abs(bounceX) > 150 || Math.abs(bounceY) > 50) {
+        this.filiBounce(bounceX, bounceY, 800)
 
-          this.filiBounce(bounceX, bounceY, 800)
+      } else {
 
-        } else {
+        this.filiTakeCover()
 
-          this.filiTakeCover()
-
-        }
       }
     }
+  }
+
+  getVelocity = () => {
+    const firstMove = this.state.lastMoves[0]
+    const lastMove = this.state.lastMoves[this.state.lastMoves.length - 1]
+    const velocityX = Math.floor(lastMove[0] - firstMove[0])
+    const velocityY = Math.floor(lastMove[1] - firstMove[1])
+    const velocity = Math.abs(velocityX) + Math.abs(velocityY)
+
+    return {
+      velocityX,
+      velocityY,
+      velocity
+    }
+  }
+
+  getDistance = (x1, y1, x2, y2) => {
+      let xs = x2 - x1,
+          ys = y2 - y1
+
+      xs *= xs;
+      ys *= ys;
+
+      return Math.sqrt( xs + ys );
   }
 
   getAnchorPosition = () => ({
@@ -290,8 +317,7 @@ class Fili extends React.PureComponent {
   }
 
   filiTakeCover = () => {
-    if (this.state.mode === MODES.STANDING) {
-      if (this.lookingDebounce) clearTimeout(this.lookingDebounce)
+    if (this.state.mode === MODES.STANDING || this.state.mode === MODES.LOOKING) {
       this.fili.play({
         run: 1,
         delay: 20,
@@ -306,6 +332,10 @@ class Fili extends React.PureComponent {
   }
 
   filiLook = (angle) => {
+    this.setState({
+      mode: MODES.LOOKING
+    })
+
     const gaze = 15
     const directions = {
       NORTH: 270,
@@ -315,8 +345,8 @@ class Fili extends React.PureComponent {
     }
 
     if (angle > directions.EAST - gaze && angle >= 0 ||
-        angle >= directions.EAST - 360 && angle < directions.EAST + gaze - 360
-    ) { // east
+        angle >= directions.EAST - 360 && angle < directions.EAST + gaze - 360 // east
+    ) {
       this.fili.showSprite(21)
     } else if (angle >= directions.EAST + gaze - 360 && angle <= directions.SOUTH - gaze) { // south-east
       this.fili.showSprite(19)
@@ -333,10 +363,6 @@ class Fili extends React.PureComponent {
     } else if (angle >= directions.NORTH + gaze && angle <= directions.EAST - gaze) { // north-east
       this.fili.showSprite(22)
     }
-
-    // Return to standing when mouse stops moving
-    if (this.lookingDebounce) clearTimeout(this.lookingDebounce)
-    this.lookingDebounce = setTimeout(this.filiStand, Math.random() * 3000)
   }
 
   filiStruggle = () => {
@@ -371,7 +397,7 @@ class Fili extends React.PureComponent {
       duration: duration,
       easing: 'easeOutQuint',
       queue: false,
-      step: (now, fx) => {
+      step: (now) => {
         if (numberOfBounces > 0) { return false }
 
         // Reverse bounce if fili hits a border
@@ -379,10 +405,14 @@ class Fili extends React.PureComponent {
           numberOfBounces++
           this.$el.clearQueue().stop(true)
           bounceX = (bounceX * .5) * -1
-          bounceY = (bounceY * .8)
+          bounceY = bounceY * .8
           duration *= .8
           this.filiBounce(bounceX, bounceY, duration)
         }
+      },
+      complete: () => {
+        // FUGLY: -7px difference?
+        this.setState({left: this.$el.offset().left -7 })
       }
     })
 
@@ -394,6 +424,7 @@ class Fili extends React.PureComponent {
       easing: 'easeOutBounce',
       queue: false,
       complete: () => {
+        this.setState({ top: this.$el.offset().top })
         ReactGA.event({
           category: 'User',
           action: `Thrown fili`
@@ -427,7 +458,7 @@ class Fili extends React.PureComponent {
   }
 
   render () {
-    const position = this.state.top && this.state.left ? {
+    const position = typeof this.state.top !== 'undefined' ? {
       top: this.state.top - this.state.parentOffsetY,
       left: this.state.left - this.state.parentOffsetX
     } : {}

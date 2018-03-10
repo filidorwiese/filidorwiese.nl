@@ -10,8 +10,6 @@ import ipadP from '../../assets/images/devices/ipad-p.jpg'
 import ipadL from '../../assets/images/devices/ipad-l.jpg'
 import tvStatic from '../../assets/images/devices/static.jpg'
 import Video from '../Video'
-import PrintHide from '../PrintHide'
-import PrintShow from '../PrintShow'
 import PrintNoBreak from '../PrintNoBreak'
 import Fili from '../Fili'
 
@@ -221,13 +219,25 @@ class Bio extends React.PureComponent {
       name,
       headline,
       description,
-      tags
+      tags,
+      printVersion
     } = this.props
 
-    const tvStaticClass = this.state.tvStatic ? 'static' : ''
-    return (
-      <Wrapper>
-        <PrintHide>
+
+    if (printVersion) {
+      return (
+        <Wrapper>
+          <PrintNoBreak>
+            <h4>Summary</h4>
+            <Blockquote dangerouslySetInnerHTML={{__html: description}} />
+            { tags && <Tags>Expertise: {Array.from(new Set(tags)).join(', ')}</Tags> }
+          </PrintNoBreak>
+        </Wrapper>
+      )
+    } else {
+      const tvStaticClass = this.state.tvStatic ? 'static' : ''
+      return (
+        <Wrapper>
           <PageOverlay id='page-static-overlay' />
           <Devices px={20} mt={40} mb={60} id='devices'>
             <Desktop className={tvStaticClass}>
