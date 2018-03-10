@@ -25,16 +25,24 @@ const Wrapper = styled.div`
     z-index: 1000;
     top: 80%;
     left: 31%;
-    
+
     background: url(${filiSprites}) 0 0 no-repeat;
     width: 76px;
     height: 104px;
-    
+
     &.shrink {
       animation: ${shrink} 2s ease-out 0s 1 forwards;
     }
+
+    &.cursor-grab {
+      cursor: url(${cursorGrab}), auto;
+    }
+
+    &.cursor-grabbing {
+      cursor: url(${cursorGrabbing}), auto;
+    }
   }
-  
+
   @media (max-width: ${breakpoints[0]}) {
     .fili {
       display: none;
@@ -65,7 +73,7 @@ class Fili extends React.PureComponent {
     if (!this.state.dragging) {
       this.filiTakeCover()
       this.setState({
-        cursor: `url(${cursorGrab}), auto`
+        cursor: 'grab'
       })
     }
   }
@@ -93,7 +101,7 @@ class Fili extends React.PureComponent {
         parentOffsetX: parentOffset.left,
         parentOffsetY: parentOffset.top,
         lastMoves: [],
-        cursor: `url(${cursorGrabbing}), auto`
+        cursor: 'grabbing'
       })
     }
   }
@@ -146,7 +154,7 @@ class Fili extends React.PureComponent {
         this.props.isDragging(false)
         this.setState({
           dragging: false,
-          cursor: `url(${cursorGrab}), auto`
+          cursor: 'grab'
         })
       }
 
@@ -337,12 +345,11 @@ class Fili extends React.PureComponent {
         onMouseEnter={this.onMouseEnter}
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
-        className='fili'
+        className={`fili cursor-${this.state.cursor}`}
         style={{
           position: this.state.position,
           top: this.state.top,
-          left: this.state.left,
-          cursor: this.state.cursor
+          left: this.state.left
         }}
       />
     </Wrapper>
