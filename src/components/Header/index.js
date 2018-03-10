@@ -75,7 +75,7 @@ const Header = ({ bio, social, tags }) => (
           </tr>
         </tbody>
       </table>
-      <Bio name={bio.name} description={bio.description} tags={tags} />
+      <Bio name={bio.name} description={bio.description} tags={tags} printVersion />
     </PrintShow>
   </header>
 )

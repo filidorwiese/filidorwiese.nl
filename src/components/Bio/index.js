@@ -258,17 +258,9 @@ class Bio extends React.PureComponent {
           <h1>{name}</h1>
           <Blockquote>{headline}</Blockquote>
           <ArrowDown />
-        </PrintHide>
-
-        <PrintShow>
-          <PrintNoBreak>
-            <h4>Summary</h4>
-            <Blockquote dangerouslySetInnerHTML={{__html: description}} />
-            { tags && <Tags>Expertise: {Array.from(new Set(tags)).join(', ')}</Tags> }
-          </PrintNoBreak>
-        </PrintShow>
-      </Wrapper>
-    )
+        </Wrapper>
+      )
+    }
   }
 }
 
@@ -276,7 +268,8 @@ Bio.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   headline: PropTypes.string,
-  tags: PropTypes.array
+  tags: PropTypes.array,
+  printVersion: PropTypes.boolean
 }
 
 export default Bio
