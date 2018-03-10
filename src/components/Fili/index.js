@@ -10,7 +10,7 @@ import cursorGrab from '../../assets/images/grab.png'
 import cursorGrabbing from '../../assets/images/grabbing.png'
 import { breakpoints } from '../../utils/theme'
 
-const shrink = keyframes`
+const falling = keyframes`
   from {
     transform: scale(1) rotate(360deg);
   }
@@ -25,13 +25,13 @@ const Wrapper = styled.div`
     z-index: 1000;
     top: 80%;
     left: 31%;
-
+    
     background: url(${filiSprites}) 0 0 no-repeat;
     width: 76px;
     height: 104px;
 
-    &.shrink {
-      animation: ${shrink} 2s ease-out 0s 1 forwards;
+    &.falling {
+      animation: ${falling} 2s ease-out 0s 1 forwards;
     }
 
     &.cursor-grab {
@@ -52,6 +52,14 @@ const Wrapper = styled.div`
 
 const LEFT_BUTTON = 0
 const DRAG_THRESHOLD = 3
+const MODES = {
+  STANDING: 'STANDING',
+  TAKINGCOVER: 'TAKINGCOVER',
+  DRAGGING: 'DRAGGING',
+  BOUNCING: 'BOUNCING',
+  FALLING: 'FALLING',
+  LOOKING: 'LOOKING'
+}
 
 class Fili extends React.PureComponent {
   constructor (props) {
@@ -59,18 +67,30 @@ class Fili extends React.PureComponent {
 
     this.state = {
       mouseDown: false,
-      dragging: false,
-      bouncing: false
+      mode: MODES.STANDING
     }
   }
 
   componentDidMount () {
     this.$el = jQuery(this.el)
     this.fili = this.filiInit()
+
+    const pageOffset = this.el.getBoundingClientRect()
+    const parentOffset = document.getElementById('devices').getBoundingClientRect()
+    this.setState({
+      elementX: pageOffset.left,
+      elementY: pageOffset.top,
+      parentOffsetX: parentOffset.left,
+      parentOffsetY: parentOffset.top,
+      width: pageOffset.width,
+      height: pageOffset.height
+    })
+
+    document.addEventListener('mousemove', this.onMouseMove)
   }
 
   onMouseEnter = () => {
-    if (!this.state.dragging) {
+    if (this.state.mode === MODES.STANDING) {
       this.filiTakeCover()
       this.setState({
         cursor: 'grab'
@@ -79,7 +99,7 @@ class Fili extends React.PureComponent {
   }
 
   onMouseOut = () => {
-    if (!this.state.dragging) {
+    if (this.state.mode === MODES.TAKINGCOVER) {
       this.filiStand()
     }
   }
@@ -87,47 +107,60 @@ class Fili extends React.PureComponent {
   onMouseDown = (event) => {
     if (event.button === LEFT_BUTTON) {
       event.stopPropagation()
-      this.addEvents()
+
       const pageOffset = this.el.getBoundingClientRect()
-      const parentOffset = document.getElementById('devices').getBoundingClientRect()
       this.setState({
         mouseDown: true,
-        width: pageOffset.width,
-        height: pageOffset.height,
         originX: event.pageX,
         originY: event.pageY,
         elementX: pageOffset.left,
         elementY: pageOffset.top,
-        parentOffsetX: parentOffset.left,
-        parentOffsetY: parentOffset.top,
         lastMoves: [],
         cursor: 'grabbing'
       })
+
+      document.addEventListener('mouseup', this.onMouseUp)
+      document.body.style.userSelect = 'none'
+      document.body.style.overflowX = 'hidden'
     }
   }
 
   onMouseMove = (event) => {
+    if (this.state.mouseDown || this.state.mode === MODES.DRAGGING) {
+      this.onMouseMoveDragging(event)
+    } else if (this.state.mode === MODES.STANDING) {
+      this.onMouseMoveLooking(event)
+    }
+  }
+
+  onMouseMoveLooking = (event) => {
+    // console.log('looking')
+    // const angleDeg = Math.atan2(this.state.elementY + this.state.height - event.pageY, this.state.elementX + this.state.width - event.pageX)
+    // console.log(Math.floor(angleDeg), this.state.elementY, this.state.elementX, event.pageX, event.pageY)
+  }
+
+  onMouseMoveDragging = (event) => {
+    // console.log('dragging', event.pageX, event.pageY)
     const deltaX = event.pageX - this.state.originX
     const deltaY = event.pageY - this.state.originY
     const distance = Math.abs(deltaX) + Math.abs(deltaY)
 
-    if (!this.state.dragging && distance > DRAG_THRESHOLD) {
-      this.setState({dragging: true})
+    if (this.state.mode !== MODES.DRAGGING && distance > DRAG_THRESHOLD) {
+      this.props.isDraggingFn(true)
       this.filiStruggle()
-      this.props.isDragging(true)
     }
 
-    if (this.state.dragging) {
-      // Drag with mouse but keep viewport constrains
+    if (this.state.mode === MODES.DRAGGING) {
+      // Drag with mouse but keep viewport constraints
       const pageWidth = document.documentElement.clientWidth
       const pageHeight = document.documentElement.clientHeight
-      let left = this.state.elementX + deltaX + document.body.scrollLeft
+      let left = this.state.elementX + deltaX
       if (left < 0) left = 0
       if (left > pageWidth - this.state.width) left = pageWidth - this.state.width
 
-      let top = this.state.elementY + deltaY + document.body.scrollTop
-      if (top < 0) top = 0
-      if (top > pageHeight - this.state.height) top = pageHeight - this.state.height
+      let top = this.state.elementY + deltaY + window.scrollY
+      if (top < window.scrollY) top = window.scrollY
+      if (top > window.scrollY + pageHeight - this.state.height) top = window.scrollY + pageHeight - this.state.height
 
       // Collect last moves for bounce effect
       const lastMoves = this.state.lastMoves
@@ -135,25 +168,27 @@ class Fili extends React.PureComponent {
       if (lastMoves.length > 10) lastMoves.shift()
 
       this.setState({
-        left: left - this.state.parentOffsetX,
-        top: top - this.state.parentOffsetY,
+        left,
+        top,
         lastMoves
       })
     }
   }
 
-  onMouseUp = (event) => {
-    this.removeEvents()
+  onMouseUp = () => {
+    document.removeEventListener('mouseup', this.onMouseUp)
+    document.body.style.userSelect = 'auto'
+    document.body.style.overflowX = 'auto'
 
-    if (this.calcInDevice(event.clientX, event.clientY)) {
+    if (this.isFiliInDevice()) {
 
-      this.filiShrink()
+      this.filiFalling()
 
     } else {
-      if (this.state.dragging) {
-        this.props.isDragging(false)
+      if (this.state.mode === MODES.DRAGGING) {
+        this.props.isDraggingFn(false)
         this.setState({
-          dragging: false,
+          mouseDown: false,
           cursor: 'grab'
         })
       }
@@ -166,33 +201,30 @@ class Fili extends React.PureComponent {
         const bounceY = Math.abs((lastMove[1] - firstMove[1]) * .4)
 
         if (Math.abs(bounceX) > 150 || Math.abs(bounceY) > 50) {
+
           this.filiBounce(bounceX, bounceY, 800)
+
         } else {
-          this.fili.showSprite(5)
+
+          this.filiTakeCover()
+
         }
       }
     }
   }
 
-  addEvents = () => {
-    document.addEventListener('mousemove', this.onMouseMove)
-    document.addEventListener('mouseup', this.onMouseUp)
-    document.body.style.userSelect = 'none'
-    document.body.style.overflowX = 'hidden'
-  }
+  getAnchorPosition = () => ({
+    x: this.state.left + (this.state.width / 2),
+    y: this.state.top + (this.state.height / 2)
+  })
 
-  removeEvents = () => {
-    document.removeEventListener('mousemove', this.onMouseMove)
-    document.removeEventListener('mouseup', this.onMouseUp)
-    document.body.style.userSelect = 'auto'
-    document.body.style.overflowX = 'auto'
-  }
-
-  calcInDevice = (x, y) => {
+  isFiliInDevice = () => {
     let inDevice = false
+    const { x, y } = this.getAnchorPosition()
     const devices = document.getElementsByClassName('static')
+
     for (let device of devices) {
-      const pos = {
+      const devicePosition = {
         top: device.offsetTop + this.state.parentOffsetY,
         left: device.offsetLeft + this.state.parentOffsetX,
         width: device.offsetWidth,
@@ -200,8 +232,8 @@ class Fili extends React.PureComponent {
       }
 
       if (
-        x > pos.left && x < pos.left + pos.width &&
-        y > pos.top && y < pos.top + pos.height
+        x > devicePosition.left && x < devicePosition.left + devicePosition.width &&
+        y > devicePosition.top && y < devicePosition.top + devicePosition.height
       ) {
         inDevice = true
       }
@@ -214,7 +246,7 @@ class Fili extends React.PureComponent {
     const fili = this.$el.spriteAnimator({
       debug: false,
       cols: 5,
-      rows: 3,
+      rows: 5,
       startFrame: 1
     })
     fili.addScript('take-cover', [
@@ -239,24 +271,40 @@ class Fili extends React.PureComponent {
   }
 
   filiStand = () => {
-    if (!this.state.dragging && !this.state.bouncing) {
+    this.setState({
+      mode: MODES.STANDING
+    })
+    setTimeout(() => {
       this.fili.play({
         run: 1,
         delay: 20,
         script: 'stand'
       })
-    }
+    }, 75)
   }
 
   filiTakeCover = () => {
-    this.fili.play({
-      run: 1,
-      delay: 20,
-      script: 'take-cover'
+    this.setState({
+      mode: MODES.TAKINGCOVER
     })
+
+    if (this.state.mode === MODES.STANDING) {
+      this.fili.play({
+        run: 1,
+        delay: 20,
+        script: 'take-cover'
+      })
+    } else {
+      this.fili.showSprite(5)
+    }
   }
 
   filiStruggle = () => {
+    if (this.state.mode !== MODES.FALLING) {
+      this.setState({
+        mode: MODES.DRAGGING
+      })
+    }
     this.fili.play({
       run: -1,
       delay: 100,
@@ -266,7 +314,7 @@ class Fili extends React.PureComponent {
 
   filiBounce = (bounceX, bounceY, duration) => {
     this.setState({
-      bouncing: true
+      mode: MODES.BOUNCING
     })
 
     let numberOfBounces = 0
@@ -306,9 +354,6 @@ class Fili extends React.PureComponent {
       easing: 'easeOutBounce',
       queue: false,
       complete: () => {
-        this.setState({
-          bouncing: false
-        })
         ReactGA.event({
           category: 'User',
           action: `Thrown fili`
@@ -318,11 +363,14 @@ class Fili extends React.PureComponent {
     })
   }
 
-  filiShrink = () => {
-    this.$el.addClass('shrink')
+  filiFalling = () => {
+    this.$el.addClass('falling')
+    this.setState({
+      mode: MODES.FALLING
+    })
 
     setTimeout(() => {
-      this.props.isDragging(false)
+      this.props.isDraggingFn(false)
       this.el.remove()
       jQuery('#page-static-overlay').show()
 
@@ -347,9 +395,8 @@ class Fili extends React.PureComponent {
         onMouseDown={this.onMouseDown}
         className={`fili cursor-${this.state.cursor}`}
         style={{
-          position: this.state.position,
-          top: this.state.top,
-          left: this.state.left
+          top: this.state.top - this.state.parentOffsetY,
+          left: this.state.left - this.state.parentOffsetX
         }}
       />
     </Wrapper>
@@ -357,7 +404,7 @@ class Fili extends React.PureComponent {
 }
 
 Fili.propTypes = {
-  isDragging: PropTypes.func
+  isDraggingFn: PropTypes.func
 }
 
 export default Fili

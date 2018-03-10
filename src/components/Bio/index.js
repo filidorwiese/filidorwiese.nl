@@ -210,8 +210,10 @@ class Bio extends React.PureComponent {
     }
   }
 
-  isDragging = (dragging) => {
-    this.setState({tvStatic: dragging})
+  isDraggingFn = (dragging) => {
+    this.setState({
+      tvStatic: dragging
+    })
   }
 
   render () {
@@ -240,7 +242,7 @@ class Bio extends React.PureComponent {
             <PhoneL className={tvStaticClass}>
               <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
             </PhoneL>
-            <Fili className='fili' isDragging={this.isDragging} />
+            <Fili className='fili' isDraggingFn={this.isDraggingFn} />
             <DevicesOverlay />
           </Devices>
           <h1>{name}</h1>
