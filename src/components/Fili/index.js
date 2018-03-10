@@ -57,8 +57,7 @@ const MODES = {
   TAKINGCOVER: 'TAKINGCOVER',
   DRAGGING: 'DRAGGING',
   BOUNCING: 'BOUNCING',
-  FALLING: 'FALLING',
-  LOOKING: 'LOOKING'
+  FALLING: 'FALLING'
 }
 
 class Fili extends React.PureComponent {
@@ -78,6 +77,8 @@ class Fili extends React.PureComponent {
     const pageOffset = this.el.getBoundingClientRect()
     const parentOffset = document.getElementById('devices').getBoundingClientRect()
     this.setState({
+      left: pageOffset.left,
+      top: pageOffset.top + window.scrollY,
       elementX: pageOffset.left,
       elementY: pageOffset.top,
       parentOffsetX: parentOffset.left,
@@ -134,13 +135,15 @@ class Fili extends React.PureComponent {
   }
 
   onMouseMoveLooking = (event) => {
-    // console.log('looking')
-    // const angleDeg = Math.atan2(this.state.elementY + this.state.height - event.pageY, this.state.elementX + this.state.width - event.pageX)
-    // console.log(Math.floor(angleDeg), this.state.elementY, this.state.elementX, event.pageX, event.pageY)
+    const { x, y } = this.getAnchorPosition()
+    let angle = Math.atan2(event.pageY - y, event.pageX - x) * 180 / Math.PI
+    angle = Math.floor((angle + 360) % 360)
+
+    // if (Math.random() < .05)
+    this.filiLook(angle)
   }
 
   onMouseMoveDragging = (event) => {
-    // console.log('dragging', event.pageX, event.pageY)
     const deltaX = event.pageX - this.state.originX
     const deltaY = event.pageY - this.state.originY
     const distance = Math.abs(deltaX) + Math.abs(deltaY)
@@ -271,24 +274,24 @@ class Fili extends React.PureComponent {
   }
 
   filiStand = () => {
-    this.setState({
-      mode: MODES.STANDING
-    })
-    setTimeout(() => {
+    if (this.state.mode === MODES.TAKINGCOVER) {
       this.fili.play({
         run: 1,
         delay: 20,
         script: 'stand'
       })
-    }, 75)
+    } else {
+      this.fili.showSprite(1)
+    }
+
+    this.setState({
+      mode: MODES.STANDING
+    })
   }
 
   filiTakeCover = () => {
-    this.setState({
-      mode: MODES.TAKINGCOVER
-    })
-
     if (this.state.mode === MODES.STANDING) {
+      if (this.lookingDebounce) clearTimeout(this.lookingDebounce)
       this.fili.play({
         run: 1,
         delay: 20,
@@ -297,6 +300,43 @@ class Fili extends React.PureComponent {
     } else {
       this.fili.showSprite(5)
     }
+    this.setState({
+      mode: MODES.TAKINGCOVER
+    })
+  }
+
+  filiLook = (angle) => {
+    const gaze = 15
+    const directions = {
+      NORTH: 270,
+      EAST: 360,
+      SOUTH: 90,
+      WEST: 180
+    }
+
+    if (angle > directions.EAST - gaze && angle >= 0 ||
+        angle >= directions.EAST - 360 && angle < directions.EAST + gaze - 360
+    ) { // east
+      this.fili.showSprite(21)
+    } else if (angle >= directions.EAST + gaze - 360 && angle <= directions.SOUTH - gaze) { // south-east
+      this.fili.showSprite(19)
+    } else if (angle > directions.SOUTH - gaze && angle < directions.SOUTH + gaze) { // south
+      this.fili.showSprite(18)
+    } else if (angle >= directions.SOUTH + gaze && angle <= directions.WEST - gaze) { // south-west
+      this.fili.showSprite(17)
+    } else if (angle > directions.WEST - gaze && angle < directions.WEST + gaze) { // west
+      this.fili.showSprite(16)
+    } else if (angle >= directions.WEST + gaze && angle <= directions.NORTH - gaze) { // north-west
+      this.fili.showSprite(24)
+    } else if (angle > directions.NORTH - gaze && angle < directions.NORTH + gaze) { // north
+      this.fili.showSprite(23)
+    } else if (angle >= directions.NORTH + gaze && angle <= directions.EAST - gaze) { // north-east
+      this.fili.showSprite(22)
+    }
+
+    // Return to standing when mouse stops moving
+    if (this.lookingDebounce) clearTimeout(this.lookingDebounce)
+    this.lookingDebounce = setTimeout(this.filiStand, Math.random() * 3000)
   }
 
   filiStruggle = () => {
@@ -387,6 +427,11 @@ class Fili extends React.PureComponent {
   }
 
   render () {
+    const position = this.state.top && this.state.left ? {
+      top: this.state.top - this.state.parentOffsetY,
+      left: this.state.left - this.state.parentOffsetX
+    } : {}
+
     return <Wrapper>
       <div
         ref={el => this.el = el}
@@ -394,10 +439,7 @@ class Fili extends React.PureComponent {
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
         className={`fili cursor-${this.state.cursor}`}
-        style={{
-          top: this.state.top - this.state.parentOffsetY,
-          left: this.state.left - this.state.parentOffsetX
-        }}
+        style={position}
       />
     </Wrapper>
   }
