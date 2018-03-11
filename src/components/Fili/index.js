@@ -78,6 +78,7 @@ class Fili extends React.PureComponent {
 
     const pageOffset = this.el.getBoundingClientRect()
     const parentOffset = document.getElementById('devices').getBoundingClientRect()
+
     this.setState({
       left: pageOffset.left,
       top: pageOffset.top + window.scrollY,
@@ -108,7 +109,7 @@ class Fili extends React.PureComponent {
   }
 
   onMouseDown = (event) => {
-    if (event.button === LEFT_BUTTON) {
+    if (event.button === LEFT_BUTTON && this.state.mode === MODES.TAKINGCOVER) {
       event.stopPropagation()
 
       const pageOffset = this.el.getBoundingClientRect()
@@ -145,14 +146,16 @@ class Fili extends React.PureComponent {
     const distance = this.getDistance(x, y, event.pageX, event.pageY)
     const {velocity} = this.getVelocity()
 
-    if (velocity > 300 || distance < 200 || this.state.mode === MODES.LOOKING) {
+    if (velocity > 300 || distance < 150 || this.state.mode === MODES.LOOKING) {
       let angle = Math.atan2(event.pageY - y, event.pageX - x) * 180 / Math.PI
       angle = Math.floor((angle + 360) % 360)
       this.filiLook(angle)
 
       // Loose interest after some time
       window.clearTimeout(this.clearLookingTimeoutId)
-      this.clearLookingTimeoutId = setTimeout(this.filiStand, 750)
+      this.clearLookingTimeoutId = setTimeout(() => {
+        if (this.state.mode === MODES.LOOKING) this.filiStand()
+      }, 750)
     }
   }
 
@@ -166,8 +169,8 @@ class Fili extends React.PureComponent {
       this.filiStruggle()
     }
 
+    // Drag with mouse but stick to viewport constraints
     if (this.state.mode === MODES.DRAGGING) {
-      // Drag with mouse but keep viewport constraints
       const pageWidth = document.documentElement.clientWidth
       const pageHeight = document.documentElement.clientHeight
       let left = this.state.elementX + deltaX
@@ -343,11 +346,10 @@ class Fili extends React.PureComponent {
   }
 
   filiStruggle = () => {
-    if (this.state.mode !== MODES.FALLING) {
-      this.setState({
-        mode: MODES.DRAGGING
-      })
-    }
+    this.setState({
+      mode: MODES.DRAGGING
+    })
+
     this.fili.play({
       run: -1,
       delay: 100,
