@@ -3,6 +3,7 @@ import * as ReactGA from 'react-ga'
 import PropTypes from 'prop-types'
 import { Flex, Box } from 'grid-styled'
 import styled from 'styled-components'
+import slugify from 'slugify'
 
 import { breakpoints, colors } from '../../utils/theme'
 import IconTech from '../../components/Icons/tech'
@@ -94,8 +95,10 @@ class Project extends React.PureComponent {
       frontmatter: { title, role, url, date, tags, video, poster, printonly },
     } = this.props.project
 
+    const id = slugify(title).toLowerCase()
+
     return (
-      <ProjectWrapper className={printonly ? 'printonly' : ''}>
+      <ProjectWrapper className={printonly ? 'printonly' : ''} id={id}>
         <PrintNoBreak>
           <ProjectFlex flexWrap={['wrap', 'nowrap', 'nowrap']} my={60}>
             <ProjectLine flex="0 0 auto" order={10} width={[40, 40, 60]} />

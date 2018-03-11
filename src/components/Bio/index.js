@@ -231,7 +231,7 @@ class Bio extends React.PureComponent {
         x > devicePosition.left && x < devicePosition.left + devicePosition.width &&
         y > devicePosition.top && y < devicePosition.top + devicePosition.height
       ) {
-        deviceHit = device.getAttribute('id')
+        deviceHit = device
       }
     }
 
@@ -239,8 +239,16 @@ class Bio extends React.PureComponent {
   }
 
   scrollTo = (event) => {
-    const deviceHit = this.raycastDevices(event.clientX, event.clientY)
-    // console.log(deviceHit)
+    if (!this.state.tvStatic) {
+      const deviceHit = this.raycastDevices(event.clientX, event.clientY)
+      if (deviceHit) {
+        const scrollToId = deviceHit.getAttribute('id').substring(3)
+        const scrollToElement = document.getElementById(scrollToId)
+        if (scrollToElement) {
+          scrollToElement.scrollIntoView({behavior: 'smooth'})
+        }
+      }
+    }
   }
 
   render () {
@@ -269,16 +277,16 @@ class Bio extends React.PureComponent {
         <Wrapper>
           <PageOverlay id='page-static-overlay' />
           <Devices px={20} mt={40} mb={60} id='devices' onClick={this.scrollTo}>
-            <Desktop className={deviceClass} id='tnt'>
+            <Desktop className={deviceClass} id='to-fedex-tnt-express'>
               <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
             </Desktop>
-            <Laptop className={deviceClass} id='wildlife'>
+            <Laptop className={deviceClass} id='to-wildlife-los-angeles'>
               <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' disableOnMobile />
             </Laptop>
-            <PhoneP className={deviceClass} id='oni' />
-            <IpadP className={deviceClass} id='klm' />
-            <IpadL className={deviceClass} id='leaseplan' />
-            <PhoneL className={deviceClass} id='heineken' >
+            <PhoneP className={deviceClass} id='to-oni-hosting' />
+            <IpadP className={deviceClass} id='to-klm-airlines' />
+            <IpadL className={deviceClass} id='to-leaseplan' />
+            <PhoneL className={deviceClass} id='to-heineken' >
               <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
             </PhoneL>
             <Fili className='fili' isDraggingFn={this.isDragging} raycastDevicesFn={this.raycastDevices} />
