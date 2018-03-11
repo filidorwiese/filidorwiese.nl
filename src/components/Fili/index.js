@@ -145,18 +145,14 @@ class Fili extends React.PureComponent {
     const distance = this.getDistance(x, y, event.pageX, event.pageY)
     const {velocity} = this.getVelocity()
 
-    if (velocity > 300 || distance < 200) {
-      window.clearTimeout(this.clearLookingTimeoutId)
+    if (velocity > 300 || distance < 200 || this.state.mode === MODES.LOOKING) {
       let angle = Math.atan2(event.pageY - y, event.pageX - x) * 180 / Math.PI
       angle = Math.floor((angle + 360) % 360)
       this.filiLook(angle)
 
-    } else {
-      // Return to standing when mouse is too far away
-      if (this.state.mode === MODES.LOOKING) {
-        window.clearTimeout(this.clearLookingTimeoutId)
-        this.clearLookingTimeoutId = setTimeout(this.filiStand, 750)
-      }
+      // Loose interest after some time
+      window.clearTimeout(this.clearLookingTimeoutId)
+      this.clearLookingTimeoutId = setTimeout(this.filiStand, 750)
     }
   }
 
