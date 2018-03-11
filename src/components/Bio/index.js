@@ -208,10 +208,39 @@ class Bio extends React.PureComponent {
     }
   }
 
-  isDraggingFn = (dragging) => {
+  isDragging = (dragging) => {
     this.setState({
       tvStatic: dragging
     })
+  }
+
+  raycastDevices = (x, y) => {
+    const devicesWrapper = document.getElementById('devices').getBoundingClientRect()
+    const devices = document.getElementsByClassName('device')
+    let deviceHit = false
+
+    for (let device of devices) {
+      const devicePosition = {
+        top: device.offsetTop + devicesWrapper.top,
+        left: device.offsetLeft + devicesWrapper.left,
+        width: device.offsetWidth,
+        height: device.offsetHeight,
+      }
+
+      if (
+        x > devicePosition.left && x < devicePosition.left + devicePosition.width &&
+        y > devicePosition.top && y < devicePosition.top + devicePosition.height
+      ) {
+        deviceHit = device.getAttribute('id')
+      }
+    }
+
+    return deviceHit
+  }
+
+  scrollTo = (event) => {
+    const deviceHit = this.raycastDevices(event.clientX, event.clientY)
+    // console.log(deviceHit)
   }
 
   render () {
@@ -235,24 +264,24 @@ class Bio extends React.PureComponent {
         </Wrapper>
       )
     } else {
-      const tvStaticClass = this.state.tvStatic ? 'static' : ''
+      const deviceClass = this.state.tvStatic ? 'device static' : 'device'
       return (
         <Wrapper>
           <PageOverlay id='page-static-overlay' />
-          <Devices px={20} mt={40} mb={60} id='devices'>
-            <Desktop className={tvStaticClass}>
+          <Devices px={20} mt={40} mb={60} id='devices' onClick={this.scrollTo}>
+            <Desktop className={deviceClass} id='tnt'>
               <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
             </Desktop>
-            <Laptop className={tvStaticClass}>
+            <Laptop className={deviceClass} id='wildlife'>
               <Video video='media/wildlife.mp4' poster='media/wildlife.jpg' disableOnMobile />
             </Laptop>
-            <PhoneP className={tvStaticClass} />
-            <IpadP className={tvStaticClass} />
-            <IpadL className={tvStaticClass} />
-            <PhoneL className={tvStaticClass}>
+            <PhoneP className={deviceClass} id='oni' />
+            <IpadP className={deviceClass} id='klm' />
+            <IpadL className={deviceClass} id='leaseplan' />
+            <PhoneL className={deviceClass} id='heineken' >
               <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
             </PhoneL>
-            <Fili className='fili' isDraggingFn={this.isDraggingFn} />
+            <Fili className='fili' isDraggingFn={this.isDragging} raycastDevicesFn={this.raycastDevices} />
             <DevicesOverlay />
           </Devices>
           <h1>{name}</h1>

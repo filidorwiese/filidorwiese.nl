@@ -130,7 +130,7 @@ class Fili extends React.PureComponent {
   onMouseMove = (event) => {
     // Collect last 10 moves for velocity effects
     const lastMoves = this.state.lastMoves
-    lastMoves.push([ event.pageX, event.pageY ])
+    lastMoves.push([event.pageX, event.pageY])
     if (lastMoves.length > 10) lastMoves.shift()
 
     if (this.state.mouseDown || this.state.mode === MODES.DRAGGING) {
@@ -141,11 +141,11 @@ class Fili extends React.PureComponent {
   }
 
   onMouseMoveLooking = (event) => {
-    const { x, y } = this.getAnchorPosition()
+    const {x, y} = this.getFiliAnchorPoint()
     const distance = this.getDistance(x, y, event.pageX, event.pageY)
-    const { velocity } = this.getVelocity()
+    const {velocity} = this.getVelocity()
 
-    if (velocity > 300 || distance < 200){
+    if (velocity > 300 || distance < 200) {
       window.clearTimeout(this.clearLookingTimeoutId)
       let angle = Math.atan2(event.pageY - y, event.pageX - x) * 180 / Math.PI
       angle = Math.floor((angle + 360) % 360)
@@ -194,7 +194,8 @@ class Fili extends React.PureComponent {
     document.body.style.userSelect = 'auto'
     document.body.style.overflowX = 'auto'
 
-    if (this.isFiliInDevice()) {
+    const {x, y} = this.getFiliAnchorPoint()
+    if (this.props.raycastDevicesFn(x, y)) {
 
       this.filiFalling()
 
@@ -208,7 +209,7 @@ class Fili extends React.PureComponent {
       }
 
       // Was fili thrown? If so, how far?
-      const { velocity, velocityX, velocityY } = this.getVelocity()
+      const {velocity, velocityX, velocityY} = this.getVelocity()
       if (velocity > 50) {
         const bounceX = Math.floor(velocityX * .6)
         const bounceY = Math.floor(Math.abs(velocityY * .4))
@@ -238,43 +239,19 @@ class Fili extends React.PureComponent {
   }
 
   getDistance = (x1, y1, x2, y2) => {
-      let xs = x2 - x1,
-          ys = y2 - y1
+    let xs = x2 - x1,
+      ys = y2 - y1
 
-      xs *= xs;
-      ys *= ys;
+    xs *= xs
+    ys *= ys
 
-      return Math.sqrt( xs + ys );
+    return Math.sqrt(xs + ys)
   }
 
-  getAnchorPosition = () => ({
+  getFiliAnchorPoint = () => ({
     x: this.state.left + (this.state.width / 2),
     y: this.state.top + (this.state.height / 2)
   })
-
-  isFiliInDevice = () => {
-    let inDevice = false
-    const { x, y } = this.getAnchorPosition()
-    const devices = document.getElementsByClassName('static')
-
-    for (let device of devices) {
-      const devicePosition = {
-        top: device.offsetTop + this.state.parentOffsetY,
-        left: device.offsetLeft + this.state.parentOffsetX,
-        width: device.offsetWidth,
-        height: device.offsetHeight,
-      }
-
-      if (
-        x > devicePosition.left && x < devicePosition.left + devicePosition.width &&
-        y > devicePosition.top && y < devicePosition.top + devicePosition.height
-      ) {
-        inDevice = true
-      }
-    }
-
-    return inDevice
-  }
 
   filiInit = () => {
     const fili = this.$el.spriteAnimator({
@@ -349,7 +326,7 @@ class Fili extends React.PureComponent {
     }
 
     if (angle > directions.EAST - gaze && angle >= 0 ||
-        angle >= directions.EAST - 360 && angle < directions.EAST + gaze - 360 // east
+      angle >= directions.EAST - 360 && angle < directions.EAST + gaze - 360 // east
     ) {
       this.fili.showSprite(21)
     } else if (angle >= directions.EAST + gaze - 360 && angle <= directions.SOUTH - gaze) { // south-east
@@ -415,7 +392,7 @@ class Fili extends React.PureComponent {
         }
       },
       complete: () => {
-        this.setState({ left: this.$el.offset().left })
+        this.setState({left: this.$el.offset().left})
       }
     })
 
@@ -427,7 +404,7 @@ class Fili extends React.PureComponent {
       easing: 'easeOutBounce',
       queue: false,
       complete: () => {
-        this.setState({ top: this.$el.offset().top })
+        this.setState({top: this.$el.offset().top})
         ReactGA.event({
           category: 'User',
           action: `Thrown fili`
@@ -480,7 +457,8 @@ class Fili extends React.PureComponent {
 }
 
 Fili.propTypes = {
-  isDraggingFn: PropTypes.func
+  isDraggingFn: PropTypes.func,
+  raycastDevicesFn: PropTypes.func
 }
 
 export default Fili
