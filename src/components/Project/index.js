@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import slugify from 'slugify'
 
 import { breakpoints, colors } from '../../utils/theme'
+import IconRole from '../../components/Icons/role'
 import IconTech from '../../components/Icons/tech'
 import IconTime from '../../components/Icons/time'
 import IconLink from '../../components/Icons/link'
@@ -106,7 +107,7 @@ class Project extends React.PureComponent {
               <h2>{title}</h2>
               <p dangerouslySetInnerHTML={{ __html: html}} />
               <Ul>
-                <PrintShow><li>{role}</li></PrintShow>
+                <PrintShow><li><IconRole />{role}</li></PrintShow>
                 <li><IconTime />{date}</li>
                 <li><IconTech />{tags}</li>
                 {url && <li>
