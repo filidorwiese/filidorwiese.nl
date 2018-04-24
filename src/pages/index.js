@@ -6,7 +6,7 @@ import PrintShow from '../components/PrintShow'
 
 export default ({ data }) => {
   const siteMetadata = data.site.siteMetadata
-  const pageTitle = `${siteMetadata.bio.name}, ${siteMetadata.bio.title} - Showcase`
+  const pageTitle = `${siteMetadata.bio.name}, ${siteMetadata.bio.title} - Resume`
   const twitterCard = [
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:creator', content: '@filidor.wiese' },
