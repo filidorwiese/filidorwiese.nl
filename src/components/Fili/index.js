@@ -1,8 +1,8 @@
 import React from 'react'
 import * as ReactGA from 'react-ga'
 import styled, { keyframes } from 'styled-components'
-import 'jquery-spriteanimator'
 import 'jquery.easing'
+import Spriteling from 'spriteling'
 import PropTypes from 'prop-types'
 
 import filiSprites from '../../assets/images/fili-draggable.png'
@@ -253,12 +253,12 @@ class Fili extends React.PureComponent {
   })
 
   filiInit = () => {
-    const fili = this.$el.spriteAnimator({
-      debug: false,
+    const fili = new Spriteling({
       cols: 5,
       rows: 5,
       startFrame: 1
-    })
+    }, this.el)
+
     fili.addScript('take-cover', [
       {sprite: 2},
       {sprite: 3},
@@ -282,10 +282,9 @@ class Fili extends React.PureComponent {
 
   filiStand = () => {
     if (this.state.mode === MODES.TAKINGCOVER) {
-      this.fili.play({
+      this.fili.play('stand', {
         run: 1,
-        delay: 20,
-        script: 'stand'
+        delay: 20
       })
     } else {
       this.fili.showSprite(1)
@@ -298,10 +297,9 @@ class Fili extends React.PureComponent {
 
   filiTakeCover = () => {
     if (this.state.mode === MODES.STANDING || this.state.mode === MODES.LOOKING) {
-      this.fili.play({
+      this.fili.play('take-cover', {
         run: 1,
-        delay: 20,
-        script: 'take-cover'
+        delay: 20
       })
     } else {
       this.fili.showSprite(5)
@@ -350,10 +348,9 @@ class Fili extends React.PureComponent {
       mode: MODES.DRAGGING
     })
 
-    this.fili.play({
+    this.fili.play('struggle', {
       run: -1,
-      delay: 100,
-      script: 'struggle'
+      delay: 100
     })
   }
 
@@ -413,7 +410,7 @@ class Fili extends React.PureComponent {
   }
 
   filiFalling = () => {
-    this.$el.addClass('falling')
+    this.el.classList.add('falling')
     this.setState({
       mode: MODES.FALLING
     })
@@ -421,7 +418,7 @@ class Fili extends React.PureComponent {
     setTimeout(() => {
       this.props.isDraggingFn(false)
       this.el.remove()
-      jQuery('#page-static-overlay').show()
+      this.props.showStaticOverlayFn()
 
       // Redirect to galaxy.fili.nl
       setTimeout(() => {

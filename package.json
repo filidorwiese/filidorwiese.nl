@@ -13,12 +13,12 @@
     "gatsby-transformer-remark": "1.7.32",
     "grid-styled": "3.2.0",
     "jquery": "3.3.1",
-    "jquery-spriteanimator": "1.0.8",
     "jquery.easing": "1.4.1",
     "react-ga": "2.4.1",
     "react-helmet": "5.2.0",
     "react-waypoint": "8.0.0",
     "slugify": "1.2.9",
+    "spriteling": "0.0.4",
     "styled-components": "3.1.6",
     "typography": "0.16.6"
   },

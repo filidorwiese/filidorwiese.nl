@@ -54,7 +54,6 @@ const Wrapper = styled(Box)`
 `
 
 const PageOverlay = styled.div`
-  display: none;
   position: fixed;
   z-index: 9999;
   top: 0;
@@ -62,6 +61,10 @@ const PageOverlay = styled.div`
   right: 0;
   bottom: 0;
   background-size: cover !important;
+  
+  &.show {
+    display: block;
+  }
 `
 
 const Blockquote = styled.blockquote`
@@ -204,13 +207,20 @@ class Bio extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      tvStatic: false
+      tvStatic: false,
+      overlayStatic: false
     }
   }
 
   isDragging = (dragging) => {
     this.setState({
       tvStatic: dragging
+    })
+  }
+
+  showStaticOverlay = () => {
+    this.setState({
+      overlayStatic: true
     })
   }
 
@@ -275,7 +285,7 @@ class Bio extends React.PureComponent {
       const deviceClass = this.state.tvStatic ? 'device static' : 'device'
       return (
         <Wrapper>
-          <PageOverlay id='page-static-overlay' />
+          { this.state.overlayStatic && <PageOverlay id='page-static-overlay' /> }
           <Devices px={20} mt={40} mb={60} id='devices' onClick={this.scrollTo}>
             <Desktop className={deviceClass} id='to-fedex-tnt-express'>
               <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
@@ -289,7 +299,11 @@ class Bio extends React.PureComponent {
             <PhoneL className={deviceClass} id='to-heineken' >
               <Video video='media/heineken.mp4' poster='media/heineken.jpg' disableOnMobile />
             </PhoneL>
-            <Fili className='fili' isDraggingFn={this.isDragging} raycastDevicesFn={this.raycastDevices} />
+            <Fili
+              className='fili'
+              isDraggingFn={this.isDragging}
+              raycastDevicesFn={this.raycastDevices}
+              showStaticOverlayFn={this.showStaticOverlay}/>
             <DevicesOverlay />
           </Devices>
           <h1>{name}</h1>
