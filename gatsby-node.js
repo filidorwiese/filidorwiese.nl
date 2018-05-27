@@ -6,17 +6,10 @@
 const Webpack = require("webpack");
 
 exports.modifyWebpackConfig = ({ config, stage }) => {
-  config.plugin('jquery', Webpack.ProvidePlugin, [
-    {
-      $: 'jquery',
-      jQuery: 'jquery'
-    }
-  ])
-
-  // Ignore jquery plugins during builds
+  // Ignore velocity plugins during builds
   if (stage === 'build-html') {
     config.loader("null", {
-      test: /jquery.*/,
+      test: /velocity.*/,
       loader: "null-loader",
     });
   }

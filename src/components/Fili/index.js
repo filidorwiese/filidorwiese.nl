@@ -1,9 +1,9 @@
 import React from 'react'
 import * as ReactGA from 'react-ga'
 import styled, { keyframes } from 'styled-components'
-import 'jquery.easing'
 import Spriteling from 'spriteling'
 import PropTypes from 'prop-types'
+import Velocity from '../../utils/velocity.bounce'
 
 import filiSprites from '../../assets/images/fili-draggable.png'
 import cursorGrab from '../../assets/images/grab.png'
@@ -73,7 +73,6 @@ class Fili extends React.PureComponent {
   }
 
   componentDidMount () {
-    this.$el = jQuery(this.el)
     this.fili = this.filiInit()
 
     const pageOffset = this.el.getBoundingClientRect()
@@ -212,8 +211,9 @@ class Fili extends React.PureComponent {
       if (velocity > 50) {
         const bounceX = Math.floor(velocityX * .6)
         const bounceY = Math.floor(Math.abs(velocityY * .4))
+        const duration = 800
 
-        this.filiBounce(bounceX, bounceY, 800)
+        this.filiBounce(bounceX, bounceY, duration)
 
       } else {
 
@@ -347,59 +347,50 @@ class Fili extends React.PureComponent {
     this.setState({
       mode: MODES.DRAGGING
     })
-
     this.fili.play('struggle', {
       run: -1,
       delay: 100
     })
   }
 
-  filiBounce = (bounceX, bounceY, duration) => {
+  filiBounce = (bounceX, bounceY, duration, numberOfBounces = 0) => {
     this.setState({
       mode: MODES.BOUNCING
     })
 
-    let numberOfBounces = 0
     if (bounceX > 0) {
       this.fili.showSprite(12)
     } else {
       this.fili.showSprite(11)
     }
 
+    const rect = this.el.getBoundingClientRect()
+
     // X bounce
-    this.$el.clearQueue().stop(true).animate({
-      'left': '+=' + bounceX
+    Velocity.animate(this.el, {
+      'left': '+=' + bounceX,
+      'tween': bounceX
     }, {
       duration: duration,
       easing: 'easeOutQuint',
       queue: false,
-      step: (now) => {
-        if (numberOfBounces > 0) { return false }
-
+      progress: (elements, complete, remaining, start, tweenValue) => {
         // Reverse bounce if fili hits a border
-        if (now + this.state.parentOffsetX < 0 || now + this.state.parentOffsetX + this.state.width > document.documentElement.clientWidth) {
-          numberOfBounces++
-          this.$el.clearQueue().stop(true)
-          bounceX = (bounceX * .5) * -1
-          bounceY = bounceY * .8
-          duration *= .8
-          this.filiBounce(bounceX, bounceY, duration)
+        if (numberOfBounces === 0) {
+          if (
+            rect.left + tweenValue < 0 ||
+            rect.left + tweenValue + this.state.width > document.documentElement.clientWidth
+          ) {
+            Velocity(this.el, 'stop')
+            numberOfBounces++
+            bounceX = (bounceX * .5) * -1
+            bounceY = bounceY * .8
+            duration *= .8
+            this.filiBounce(bounceX, bounceY, duration, numberOfBounces)
+          }
         }
       },
       complete: () => {
-        this.setState({left: this.$el.offset().left})
-      }
-    })
-
-    // Y bounce
-    this.$el.animate({
-      'top': '+=' + bounceY
-    }, {
-      duration: duration / 2,
-      easing: 'easeOutBounce',
-      queue: false,
-      complete: () => {
-        this.setState({top: this.$el.offset().top})
         ReactGA.event({
           category: 'User',
           action: `Thrown fili`
@@ -407,6 +398,17 @@ class Fili extends React.PureComponent {
         setTimeout(this.filiStand, 200)
       }
     })
+
+    // Y bounce
+    if (numberOfBounces === 0) {
+      Velocity.animate(this.el, {
+        'top': '+=' + bounceY
+      }, {
+        duration: duration / 2,
+        easing: 'easeOutBounce',
+        queue: false
+      })
+    }
   }
 
   filiFalling = () => {
