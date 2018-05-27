@@ -231,8 +231,8 @@ class Bio extends React.PureComponent {
 
     for (let device of devices) {
       const devicePosition = {
-        top: device.offsetTop + devicesWrapper.top,
-        left: device.offsetLeft + devicesWrapper.left,
+        top: window.scrollY + device.offsetTop + devicesWrapper.top,
+        left: window.scrollX + device.offsetLeft + devicesWrapper.left,
         width: device.offsetWidth,
         height: device.offsetHeight,
       }
