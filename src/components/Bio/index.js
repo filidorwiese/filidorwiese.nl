@@ -248,19 +248,6 @@ class Bio extends React.PureComponent {
     return deviceHit
   }
 
-  scrollTo = (event) => {
-    if (!this.state.tvStatic) {
-      const deviceHit = this.raycastDevices(event.clientX, event.clientY)
-      if (deviceHit) {
-        const scrollToId = deviceHit.getAttribute('id').substring(3)
-        const scrollToElement = document.getElementById(scrollToId)
-        if (scrollToElement) {
-          scrollToElement.scrollIntoView({behavior: 'smooth'})
-        }
-      }
-    }
-  }
-
   render () {
     const {
       name,
@@ -286,7 +273,7 @@ class Bio extends React.PureComponent {
       return (
         <Wrapper>
           { this.state.overlayStatic && <PageOverlay id='page-static-overlay' /> }
-          <Devices px={20} mt={40} mb={60} id='devices' onClick={this.scrollTo}>
+          <Devices px={20} mt={40} mb={60} id='devices'>
             <Desktop className={deviceClass} id='to-fedex-tnt-express'>
               <Video video='media/tnt.mp4' poster='media/tnt.jpg' disableOnMobile />
             </Desktop>
