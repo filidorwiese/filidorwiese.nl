@@ -6,6 +6,7 @@ My static resume website build:
  * Styled-components
  * Grid-styled
  * Typography
+ * [Spriteling](https://github.com/filidorwiese/spriteling) (spritesheet animation engine)
 
 ## Prerequisites
 * Npm (LTS version or higher)
