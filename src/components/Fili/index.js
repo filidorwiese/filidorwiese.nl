@@ -284,7 +284,7 @@ class Fili extends React.PureComponent {
     if (this.state.mode === MODES.TAKINGCOVER) {
       this.fili.play('stand', {
         run: 1,
-        delay: 20
+        delay: 40
       })
     } else {
       this.fili.showSprite(1)
@@ -299,7 +299,7 @@ class Fili extends React.PureComponent {
     if (this.state.mode === MODES.STANDING || this.state.mode === MODES.LOOKING) {
       this.fili.play('take-cover', {
         run: 1,
-        delay: 20
+        delay: 40
       })
     } else {
       this.fili.showSprite(5)

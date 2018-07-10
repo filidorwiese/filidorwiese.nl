@@ -16,7 +16,7 @@
     "react-helmet": "5.2.0",
     "react-waypoint": "8.0.0",
     "slugify": "1.2.9",
-    "spriteling": "0.0.4",
+    "spriteling": "1.1.0",
     "styled-components": "3.1.6",
     "typography": "0.16.6",
     "velocity-animate": "1.5.1"
