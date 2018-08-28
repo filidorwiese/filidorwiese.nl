@@ -3,7 +3,7 @@ title: KLM Airlines
 role: Senior Front-end developer
 url: https://www.klm.com/destinations/nl/nl/search
 sortdate: "2013-06-01"
-date: "June 2013 - February 2014"
+date: "June 2013 - March 2014"
 tags: Backbone, Restful, Selenium, Cucumber, Mocha, Chai, Webdriver.io, Scrum
 video: "media/klm.mp4"
 poster: "media/klm.jpg"
