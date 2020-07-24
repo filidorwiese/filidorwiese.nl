@@ -19,12 +19,13 @@ const falling = keyframes`
   }
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled.a`
   .fili {
     position: absolute;
     z-index: 1000;
     top: 80%;
     left: 31%;
+    color: transparent;
     
     background: url(${filiSprites}) 0 0 no-repeat;
     width: 76px;
@@ -125,6 +126,15 @@ class Fili extends React.PureComponent {
       document.body.style.userSelect = 'none'
       document.body.style.overflowX = 'hidden'
     }
+  }
+
+  onClick = (event) => {
+    // event.preventDefault()
+
+    if (this.state.mode === MODES.DRAGGING) {
+      this.filiStand()
+    }
+    console.log('onclick', this.state.mode)
   }
 
   onMouseMove = (event) => {
@@ -440,15 +450,19 @@ class Fili extends React.PureComponent {
       left: this.state.left - this.state.parentOffsetX
     } : {}
 
+    const bookmarklet = `javascript:if(!window.location.hostname.match(/filidorwiese|localhost/)) { var s = document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='//bookmarklet.fili.nl/spawn.min.js';void(0); };`
+    console.log(bookmarklet)
+
     return <Wrapper>
-      <div
+      <a
         ref={el => this.el = el}
         onMouseEnter={this.onMouseEnter}
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
         className={`fili cursor-${this.state.cursor}`}
         style={position}
-      />
+        href={bookmarklet}
+      >Fili</a>
     </Wrapper>
   }
 }
