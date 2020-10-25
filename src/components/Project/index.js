@@ -107,7 +107,7 @@ class Project extends React.PureComponent {
               <h2>{title}</h2>
               <p dangerouslySetInnerHTML={{ __html: html}} />
               <Ul>
-                <PrintShow><li><IconRole />{role}</li></PrintShow>
+                <li><IconRole />{role}</li>
                 <li><IconTime />{date}</li>
                 <li><IconTech />{tags}</li>
                 {url && <li>
