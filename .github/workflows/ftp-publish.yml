@@ -3,7 +3,7 @@ name: Ftp publish
 
 on:
   push:
-    branches:
+    ignore_branches:
       - 'master'
   workflow_dispatch:
 
@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: 12
 
-      - name: yarn install
+      - name: Run yarn install
         run: yarn install
 
-      - name: yarn build
+      - name: Run yarn build
         run: yarn build
 
       - name: List output files
