@@ -3,7 +3,7 @@ name: Ftp publish
 
 on:
   push:
-    ignore_branches:
+    branches:
       - 'master'
   workflow_dispatch:
 
@@ -26,10 +26,12 @@ jobs:
         run: ls
 
       - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          ftp-server: sftp://ftp.oni.nl:22
-          ftp-username: filidorwiese.nl
-          ftp-password: ${{ secrets.SFTP_PASSWORD }}
+          server: sftp://sftp.oni.nl
+          port: 22
+          protocol: sftp
+          username: filidorwiese.nl
+          password: ${{ secrets.SFTP_PASSWORD }}
           local-dir: public/
-          git-ftp-args: --remote-root test/
+          git-ftp-args: --insecure --remote-root test/
