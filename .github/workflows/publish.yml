@@ -1,0 +1,33 @@
+
+name: Publish
+
+on:
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Run yarn install
+        run: yarn install
+
+      - name: Run yarn build
+        run: yarn build
+
+      - name: Rsync Deployments Action
+        uses: Burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete
+          path: public/
+          remote_path: ~/DOMAIN/HTML/
+          remote_host: ssh.oni.nl
+          remote_user: filidorwiese.nl
+          remote_key: ${{ secrets.DEPLOY_KEY }}
